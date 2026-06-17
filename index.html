@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CineStager | Scan, Stage, Shoot.</title>
+<meta name="description" content="AR previs for filmmakers. Place scanned 3D locations, block scenes and test lenses — all before the shoot. iPhone & iPad.">
+<meta property="og:title" content="CineStager | Scan, Stage, Shoot.">
+<meta property="og:description" content="AR previs for filmmakers. Place scanned 3D locations, block scenes and test lenses — all before the shoot. iPhone & iPad.">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #05050a;
+    --surface: #0c0c14;
+    --surface2: #111120;
+    --border: #1a1a2e;
+    --cyan: #3ecfff;
+    --blue: #1a4aff;
+    --text: #e8e8f5;
+    --muted: #6a6a8a;
+    --faint: #2a2a3e;
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: "DM Sans", sans-serif; font-weight: 300;
+    line-height: 1.7; overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 16px 48px; display: flex; justify-content: space-between; align-items: center;
+    background: linear-gradient(to bottom, rgba(5,5,10,0.97) 0%, transparent 100%);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .nav-logo img { height: 32px; width: 32px; border-radius: 8px; }
+  .nav-logo-name { font-family: "Unbounded", sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.05em; color: var(--text); }
+  .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+  .nav-links a { font-family: "DM Mono", monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta { background: var(--cyan) !important; color: var(--bg) !important; padding: 8px 20px; border-radius: 100px; font-weight: 500 !important; transition: opacity 0.2s !important; }
+  .nav-cta:hover { opacity: 0.85 !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; text-align: center;
+    padding: 120px 48px 80px; position: relative; overflow: hidden;
+  }
+  .hero-glow {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -60%); width: 1000px; height: 1000px;
+    background: radial-gradient(ellipse at center, rgba(62,207,255,0.09) 0%, rgba(26,74,255,0.05) 40%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-icon {
+    width: min(220px, 45vw);
+    height: auto;
+    border-radius: 40px;
+    box-shadow: 0 0 80px rgba(62,207,255,0.25), 0 40px 80px rgba(0,0,0,0.6);
+    margin-bottom: 52px;
+    opacity: 0; animation: fadeUp 0.9s ease forwards 0.2s;
+  }
+  .hero-app-name { font-family: "Unbounded", sans-serif; font-size: clamp(18px, 2.5vw, 28px); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text); margin-top: -28px; margin-bottom: 80px; opacity: 0; animation: fadeUp 0.8s ease forwards 0.4s; }
+  .hero-headline { font-family: "Unbounded", sans-serif; font-size: clamp(36px, 6vw, 76px); font-weight: 900; line-height: 1.0; letter-spacing: -0.025em; margin-bottom: 8px; opacity: 0; animation: fadeUp 0.8s ease forwards 0.55s; }
+  .hero-headline-light { font-family: "Unbounded", sans-serif; font-size: clamp(36px, 6vw, 76px); font-weight: 300; line-height: 1.0; letter-spacing: -0.025em; color: var(--cyan); margin-bottom: 44px; opacity: 0; animation: fadeUp 0.8s ease forwards 0.7s; }
+  .hero-sub { font-size: clamp(14px, 1.8vw, 17px); color: var(--muted); max-width: 500px; line-height: 1.85; margin-bottom: 48px; opacity: 0; animation: fadeUp 0.8s ease forwards 0.85s; }
+  .hero-sub strong { color: var(--text); font-weight: 400; }
+  .hero-actions { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; justify-content: center; opacity: 0; animation: fadeUp 0.8s ease forwards 1.0s; }
+  .btn-primary { display: inline-flex; align-items: center; gap: 10px; background: var(--cyan); color: var(--bg); font-family: "DM Sans", sans-serif; font-size: 14px; font-weight: 500; padding: 14px 28px; border-radius: 100px; text-decoration: none; transition: opacity 0.2s, transform 0.2s; }
+  .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+  .btn-secondary { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); font-family: "DM Mono", monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: color 0.2s; padding: 14px 4px; }
+  .btn-secondary:hover { color: var(--text); }
+  .hero-scroll { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; opacity: 0; animation: fadeUp 0.8s ease forwards 1.4s; }
+  .hero-scroll span { font-family: "DM Mono", monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+  .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--cyan), transparent); animation: scrollPulse 2s ease-in-out infinite; }
+
+  /* STRIP */
+  .tagline-strip { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 18px 48px; display: flex; justify-content: center; gap: 56px; flex-wrap: wrap; }
+  .tagline-item { display: flex; align-items: center; gap: 12px; white-space: nowrap; }
+  .tagline-num { font-family: "Unbounded", sans-serif; font-size: 11px; font-weight: 700; color: var(--cyan); }
+  .tagline-text { font-family: "DM Mono", monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+
+  /* SECTIONS */
+  .section-wrap { padding: 120px 48px; max-width: 1200px; margin: 0 auto; }
+  .section-label { font-family: "DM Mono", monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cyan); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+  .section-label::after { content: ""; flex: 1; max-width: 48px; height: 1px; background: var(--cyan); opacity: 0.4; }
+  .section-title { font-family: "Unbounded", sans-serif; font-size: clamp(26px, 3.5vw, 42px); font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 16px; }
+  .section-sub { font-size: 15px; color: var(--muted); max-width: 480px; line-height: 1.8; }
+
+  /* HOW IT WORKS */
+  .how-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 64px; background: var(--border); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+  .how-card { background: var(--surface); padding: 40px 24px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 18px; transition: background 0.3s; position: relative; }
+  .how-card:hover { background: var(--surface2); }
+  .how-card-accent { position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--cyan), var(--blue)); opacity: 0; transition: opacity 0.3s; }
+  .how-card:hover .how-card-accent { opacity: 1; }
+  .how-card-img { width: 72px; height: 72px; object-fit: contain; filter: brightness(0) invert(1) sepia(1) saturate(2) hue-rotate(175deg); opacity: 0.8; }
+  .how-card-title { font-family: "Unbounded", sans-serif; font-size: 12px; font-weight: 700; color: var(--text); }
+  .how-card-body { font-size: 12px; color: var(--muted); line-height: 1.75; }
+
+  /* USE CASES */
+  .usecases-wrap { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .usecases-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 64px; }
+  .usecase-card { border: 1px solid var(--border); border-radius: 12px; padding: 36px 40px; display: flex; gap: 20px; align-items: flex-start; background: var(--bg); transition: border-color 0.3s, background 0.3s; }
+  .usecase-card:hover { border-color: rgba(62,207,255,0.3); background: rgba(62,207,255,0.03); }
+  .usecase-icon { font-size: 26px; flex-shrink: 0; margin-top: 2px; }
+  .usecase-title { font-family: "Unbounded", sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 10px; }
+  .usecase-body { font-size: 15px; color: var(--muted); line-height: 1.8; }
+
+  /* FEATURES */
+  .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 64px; }
+  .feature-item { padding: 36px 40px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); transition: border-color 0.3s; }
+  .feature-item:hover { border-color: var(--faint); }
+  .feature-dot { width: 36px; height: 36px; border-radius: 8px; background: linear-gradient(135deg, rgba(62,207,255,0.15), rgba(26,74,255,0.15)); border: 1px solid rgba(62,207,255,0.2); margin-bottom: 18px; display: flex; align-items: center; justify-content: center; font-size: 17px; }
+  .feature-title { font-family: "Unbounded", sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 10px; }
+  .feature-body { font-size: 15px; color: var(--muted); line-height: 1.8; }
+
+  /* TESTIMONIALS */
+  .testimonials-wrap { border-top: 1px solid var(--border); }
+  .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 64px; }
+  .testimonial-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 16px; }
+  .testimonial-stars { color: var(--cyan); font-size: 12px; letter-spacing: 3px; }
+  .testimonial-quote { font-size: 13.5px; color: var(--text); line-height: 1.8; font-style: italic; flex: 1; }
+  .testimonial-author { border-top: 1px solid var(--border); padding-top: 14px; }
+  .testimonial-name { font-family: "Unbounded", sans-serif; font-size: 10px; font-weight: 700; margin-bottom: 4px; }
+  .testimonial-role { font-family: "DM Mono", monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .testimonial-placeholder { background: rgba(62,207,255,0.03); border: 1px dashed rgba(62,207,255,0.15); border-radius: 12px; padding: 28px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; min-height: 180px; }
+  .testimonial-placeholder span { font-family: "DM Mono", monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(62,207,255,0.35); }
+  .testimonial-placeholder p { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+  /* CTA */
+  .cta-wrap { border-top: 1px solid var(--border); }
+  .cta-inner { max-width: 1200px; margin: 0 auto; padding: 120px 48px; text-align: center; position: relative; overflow: hidden; }
+  .cta-glow { position: absolute; bottom: -80px; left: 50%; transform: translateX(-50%); width: 600px; height: 400px; background: radial-gradient(ellipse at center, rgba(62,207,255,0.07) 0%, transparent 70%); pointer-events: none; }
+  .cta-icon { width: min(160px, 35vw); height: auto; border-radius: 28px; margin: 0 auto 44px; display: block; box-shadow: 0 0 60px rgba(62,207,255,0.2), 0 20px 60px rgba(0,0,0,0.5); }
+  .cta-title { font-family: "Unbounded", sans-serif; font-size: clamp(30px, 5vw, 60px); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 20px; }
+  .cta-title span { color: var(--cyan); }
+  .cta-sub { font-size: 15px; color: var(--muted); margin-bottom: 44px; max-width: 380px; margin-left: auto; margin-right: auto; line-height: 1.75; }
+  .cta-badge { display: inline-block; font-family: "DM Mono", monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-top: 20px; padding: 8px 16px; border: 1px solid var(--border); border-radius: 100px; }
+
+  /* FOOTER */
+  footer { border-top: 1px solid var(--border); padding: 36px 48px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .footer-brand { display: flex; align-items: center; gap: 10px; }
+  .footer-brand img { height: 32px; width: 32px; border-radius: 7px; }
+  .footer-brand span { font-family: "Unbounded", sans-serif; font-size: 11px; font-weight: 700; color: var(--text); }
+  .footer-links { display: flex; gap: 28px; list-style: none; flex-wrap: wrap; }
+  .footer-links a { font-family: "DM Mono", monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--text); }
+  .footer-copy { font-family: "DM Mono", monospace; font-size: 10px; letter-spacing: 0.08em; color: var(--muted); }
+
+
+  .logo-track {
+    display: flex;
+    align-items: center;
+    gap: 64px;
+    width: max-content;
+    padding: 8px 0;
+    will-change: transform;
+  }
+  .logo-track img {
+    height: 36px;
+    width: auto;
+    opacity: 0.5;
+    filter: brightness(0) invert(1);
+    transition: opacity 0.3s;
+    flex-shrink: 0;
+  }
+  .logo-track img:hover { opacity: 0.9; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes scrollPulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+  @media (max-width: 900px) {
+    .feature-row { grid-template-columns: 1fr !important; }
+    .feature-row-reverse { grid-template-columns: 1fr !important; }
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero { padding: 100px 24px 80px; }
+    .tagline-strip { padding: 16px 24px; gap: 20px; }
+    .section-wrap { padding: 80px 24px; }
+    .how-grid { grid-template-columns: repeat(2, 1fr); }
+    .usecases-grid { grid-template-columns: 1fr; }
+    .features-grid { grid-template-columns: 1fr 1fr; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .cta-inner { padding: 80px 24px; }
+    footer { padding: 28px 24px; flex-direction: column; align-items: flex-start; }
+  }
+  @media (max-width: 560px) {
+    .how-grid { grid-template-columns: 1fr; }
+    .features-grid { grid-template-columns: 1fr; }
+  }
+
+  .hero-screens { display: flex; gap: 16px; align-items: center; justify-content: center; flex-wrap: nowrap; overflow: hidden; }
+  .hero-screens img { flex-shrink: 1; min-width: 0; }
+  .hero-screen-side:first-child {
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black var(--hero-fade-start, 40%));
+    mask-image: linear-gradient(to right, transparent 0%, black var(--hero-fade-start, 40%));
+  }
+  .hero-screen-side:last-child {
+    -webkit-mask-image: linear-gradient(to left, transparent 0%, black var(--hero-fade-start, 40%));
+    mask-image: linear-gradient(to left, transparent 0%, black var(--hero-fade-start, 40%));
+  }
+  @media (max-width: 680px) {
+    .hero-screen-side { display: none; }
+  }
+</style>
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="icon.png" alt="CineStager">
+    <span class="nav-logo-name">CINESTAGER</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#usecases">Use cases</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="help.html">Help</a></li>
+    <li style="display:flex;gap:10px;align-items:center;">
+      <a href="https://www.instagram.com/cinestager/" target="_blank" style="display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:6px;border:1px solid var(--border);transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--cyan)'" onmouseout="this.style.borderColor='var(--border)'">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6a6a8a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      </a>
+      <a href="https://www.youtube.com/@cinestager" target="_blank" style="display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:6px;border:1px solid var(--border);transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--cyan)'" onmouseout="this.style.borderColor='var(--border)'">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6a6a8a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+      </a>
+    </li>
+    <li><a href="https://apps.apple.com/nl/app/cinestager/id6755585287" class="nav-cta">Get the app</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="hero-glow"></div>
+  <img src="icon.png" alt="CineStager" class="hero-icon">
+  <div class="hero-app-name">CINESTAGER</div>
+  <h1 class="hero-headline">Be on set</h1>
+  <h1 class="hero-headline-light">before you're on set.</h1>
+  <p class="hero-sub">Place <strong>scanned 3D locations</strong> in AR, block scenes with mannequins, and test lenses — all before the crew arrives.</p>
+  <div class="hero-actions">
+    <a href="https://apps.apple.com/nl/app/cinestager/id6755585287" style="display:inline-block;line-height:0;">
+      <img src="appstore.svg" alt="Download on the App Store" style="height:48px;width:auto;">
+    </a>
+    <a href="#how" class="btn-secondary">See how it works →</a>
+  </div>
+  <div class="hero-screens" style="margin-top: 48px; opacity: 0; animation: fadeUp 0.8s ease forwards 1.4s;">
+    <img src="screen5.jpg" alt="CineStager Game Mode" class="hero-screen-side" style="height: 200px; width: auto; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 16px 48px rgba(0,0,0,0.5);">
+    <img src="screen1.jpg" alt="CineStager AR Mode" style="height: 240px; width: auto; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 24px 64px rgba(0,0,0,0.6);">
+    <img src="screen6.jpg" alt="CineStager Game Mode 2" class="hero-screen-side" style="height: 200px; width: auto; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 16px 48px rgba(0,0,0,0.5);">
+  </div>
+
+</div>
+
+<div style="border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 28px 48px; display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center;">
+  <div style="font-family: 'Unbounded', sans-serif; font-size: clamp(20px, 3vw, 32px); font-weight: 900; letter-spacing: -0.01em; color: var(--text);">
+    Scan, Stage, <span style="color: var(--cyan);">Shoot.</span>
+  </div>
+  <div style="display: flex; gap: 40px; flex-wrap: wrap; justify-content: center;">
+    <div class="tagline-item"><span class="tagline-num">01</span><span class="tagline-text">Scan your location</span></div>
+    <div class="tagline-item"><span class="tagline-num">02</span><span class="tagline-text">Stage your scene</span></div>
+    <div class="tagline-item"><span class="tagline-num">03</span><span class="tagline-text">Shoot with confidence</span></div>
+    <div class="tagline-item"><span class="tagline-num">✦</span><span class="tagline-text">Built by a filmmaker</span></div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS — groot, Previs Pro stijl -->
+<div style="border-top: 1px solid var(--border);" id="how">
+
+  <!-- Feature 1: AR Mode — tekst links, screenshot rechts -->
+  <div class="feature-row" style="max-width: 1200px; margin: 0 auto; padding: 100px 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;">
+    <div>
+      <div style="font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cyan); margin-bottom: 20px; display:flex; align-items:center; gap:12px;">How it works <span style="display:block;width:48px;height:1px;background:var(--cyan);opacity:0.4;"></span></div>
+      <div style="font-size: 52px; margin-bottom: 16px; line-height:1;">📍</div>
+      <h2 style="font-family: 'Unbounded', sans-serif; font-size: clamp(28px, 3.5vw, 44px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 20px;">Scan your<br>shooting location.</h2>
+      <p style="font-size: 16px; color: var(--muted); line-height: 1.8; max-width: 420px;">Use the built-in LiDAR scanner or apps like Polycam and Scaniverse to create a precise 3D model of your location. Import it directly into CineStager with one tap, or any USDZ model.</p>
+    </div>
+    <div style="border-radius: 16px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 24px 64px rgba(0,0,0,0.4); background: transparent;">
+      <model-viewer
+        src="location.glb"
+        auto-rotate
+        camera-controls
+        rotation-per-second="20deg"
+        style="width: 100%; height: 420px; background-color: transparent; --poster-color: transparent;"
+        shadow-intensity="0"
+        exposure="1.2"
+        environment-image="neutral">
+      </model-viewer>
+    </div>
+  </div>
+
+  <div style="border-top: 1px solid var(--border); background: var(--surface);">
+  <!-- Feature 2: Camera Profiles — screenshot links, tekst rechts -->
+  <div class="feature-row" style="max-width: 1200px; margin: 0 auto; padding: 100px 48px 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;">
+    <div style="border-radius: 16px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 24px 64px rgba(0,0,0,0.4);">
+      <img src="screen2.jpg" alt="Camera Profiles in CineStager" style="width:100%; display:block;">
+    </div>
+    <div>
+      <div style="font-size: 52px; margin-bottom: 16px; line-height:1;">🎥</div>
+      <h2 style="font-family: 'Unbounded', sans-serif; font-size: clamp(28px, 3.5vw, 44px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 20px;">Select your camera<br>and lens.</h2>
+      <p style="font-size: 16px; color: var(--muted); line-height: 1.8; max-width: 420px;">Choose from a comprehensive library of camera bodies and sensor formats. Configure prime or zoom lenses, set framelines, and save presets for your exact kit.</p>
+    </div>
+  </div>
+  </div>
+
+  <!-- CAMERA LOGO CAROUSEL — buiten grid, direct onder feature 2 -->
+  <div style="background: var(--surface); padding: 24px 0; overflow: hidden; position: relative;">
+    <div style="position: relative; overflow: hidden;">
+      <div style="position:absolute;left:0;top:0;bottom:0;width:80px;background:linear-gradient(to right,var(--surface),transparent);z-index:2;pointer-events:none;"></div>
+      <div style="position:absolute;right:0;top:0;bottom:0;width:80px;background:linear-gradient(to left,var(--surface),transparent);z-index:2;pointer-events:none;"></div>
+      <div class="logo-track">
+        <img src="logo_arri.png" alt="Arri">
+        <img src="logo_sony.png" alt="Sony">
+        <img src="logo_canon.png" alt="Canon">
+        <img src="logo_red.png" alt="RED" style="height:33px !important;">
+        <img src="logo_kodak.png" alt="Kodak">
+        <img src="logo_blackmagic.png" alt="Blackmagic">
+        <img src="logo_dji.png" alt="DJI">
+        <img src="logo_arri.png" alt="Arri">
+        <img src="logo_sony.png" alt="Sony">
+        <img src="logo_canon.png" alt="Canon">
+        <img src="logo_red.png" alt="RED" style="height:33px !important;">
+        <img src="logo_kodak.png" alt="Kodak">
+        <img src="logo_blackmagic.png" alt="Blackmagic">
+        <img src="logo_dji.png" alt="DJI">
+        <img src="logo_arri.png" alt="Arri">
+        <img src="logo_sony.png" alt="Sony">
+        <img src="logo_canon.png" alt="Canon">
+        <img src="logo_red.png" alt="RED" style="height:33px !important;">
+        <img src="logo_kodak.png" alt="Kodak">
+        <img src="logo_blackmagic.png" alt="Blackmagic">
+        <img src="logo_dji.png" alt="DJI">
+      </div>
+    </div>
+  </div>
+
+  <div style="border-top: 1px solid var(--border);">
+  <!-- Feature 3: Mannequins — tekst links, screenshot rechts -->
+  <div class="feature-row" style="max-width: 1200px; margin: 0 auto; padding: 100px 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;">
+    <div>
+      <div style="font-size: 52px; margin-bottom: 16px; line-height:1;">🧍</div>
+      <h2 style="font-family: 'Unbounded', sans-serif; font-size: clamp(28px, 3.5vw, 44px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 20px;">Place mannequins<br>and block scenes.</h2>
+      <p style="font-size: 16px; color: var(--muted); line-height: 1.8; max-width: 420px;">Choose from a range of mannequins in different poses. Adjust height, position and blocking. Use occlusion mode to place real actors inside your virtual location.</p>
+    </div>
+    <div style="border-radius: 16px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 24px 64px rgba(0,0,0,0.4);">
+      <img src="screen3.jpg" alt="Mannequin Library in CineStager" style="width:100%; display:block;">
+    </div>
+  </div>
+  </div>
+
+  <div style="border-top: 1px solid var(--border); background: var(--surface);">
+  <!-- Feature 4: Export — geen screenshot, tekst + icon groot -->
+  <div class="feature-row" style="max-width: 1200px; margin: 0 auto; padding: 100px 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;">
+    <div style="border-radius: 16px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 24px 64px rgba(0,0,0,0.4);">
+      <img src="screen4.jpg" alt="Top-down map export in CineStager" style="width:80%; display:block; margin: 0 auto;">
+    </div>
+    <div>
+      <div style="font-size: 52px; margin-bottom: 16px; line-height:1;">📤</div>
+      <h2 style="font-family: 'Unbounded', sans-serif; font-size: clamp(28px, 3.5vw, 44px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 20px;">Export stills<br>and maps.</h2>
+      <p style="font-size: 16px; color: var(--muted); line-height: 1.8; max-width: 420px;">Every image capture automatically saves a top-down map showing camera position and actor placement for every shot. Share with your gaffer, AD and DP before day one.</p>
+    </div>
+  </div>
+  </div>
+
+</div>
+
+<div class="usecases-wrap" id="usecases">
+  <div class="section-wrap">
+    <div class="section-label">Use cases</div>
+    <h2 class="section-title">Built for the way<br>filmmakers actually work.</h2>
+    <p class="section-sub">From commercials to feature films — any production that needs to prep shots before stepping on set.</p>
+    <div class="usecases-grid">
+      <div class="usecase-card"><span class="usecase-icon">🎬</span><div><h3 class="usecase-title">Previs for commercials</h3><p class="usecase-body">Show clients exactly what they'll get before the shoot day. Test compositions, blocking and lens choices in the actual location.</p></div></div>
+      <div class="usecase-card"><span class="usecase-icon">🔭</span><div><h3 class="usecase-title">Lens testing during prep</h3><p class="usecase-body">Compare focal lengths in your scanned location. See how a 25mm versus a 50mm frames the scene before you rent anything.</p></div></div>
+      <div class="usecase-card"><span class="usecase-icon">🚶</span><div><h3 class="usecase-title">Blocking actors in AR</h3><p class="usecase-body">Use occlusion mode to block real actors inside a virtual location — ideal for complex moves or tight spaces.</p></div></div>
+      <div class="usecase-card"><span class="usecase-icon">🗺️</span><div><h3 class="usecase-title">Shot planning with your crew</h3><p class="usecase-body">Export top-down maps showing camera positions and actor placement. Your gaffer, AD, and DP are aligned before day one.</p></div></div>
+      <div class="usecase-card"><span class="usecase-icon">🏠</span><div><h3 class="usecase-title">Remote location scouting</h3><p class="usecase-body">Scan once. Test endlessly from your living room. No need to return to answer "will this shot work?"</p></div></div>
+      <div class="usecase-card"><span class="usecase-icon">🎵</span><div><h3 class="usecase-title">Music video prep</h3><p class="usecase-body">Fast turnaround, high visual ambition. Nail every setup in advance so you shoot confidently when the clock is ticking.</p></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="section-wrap" id="features">
+  <div class="section-label">Features</div>
+  <h2 class="section-title">Everything you need.<br>Nothing you don't.</h2>
+  <p class="section-sub">Designed by a filmmaker who needed it on set.</p>
+  <div class="features-grid">
+    <div class="feature-item"><div class="feature-dot">📡</div><h3 class="feature-title">AR Mode & Game Mode</h3><p class="feature-body">Switch between placing your scene in the real world or navigating freely in a virtual environment. Your setup stays intact.</p></div>
+    <div class="feature-item"><div class="feature-dot">📷</div><h3 class="feature-title">Camera & Lens Simulation</h3><p class="feature-body">Select your camera body, sensor format and framelines. Configure prime or zoom lenses and save custom presets for your kit.</p></div>
+    <div class="feature-item"><div class="feature-dot">🧍</div><h3 class="feature-title">Mannequins & Real Actors</h3><p class="feature-body">Place mannequins in various poses and adjust height. Use occlusion mode to block real actors inside your virtual location.</p></div>
+    <div class="feature-item"><div class="feature-dot">🗺️</div><h3 class="feature-title">Top-Down Map Export</h3><p class="feature-body">Every image capture automatically saves a bird's-eye map showing camera position and actor placement.</p></div>
+    <div class="feature-item"><div class="feature-dot">📦</div><h3 class="feature-title">3D Location Library</h3><p class="feature-body">Import scans from LiDAR, Polycam, Scaniverse or any photogrammetry app. Build a library of locations to reuse.</p></div>
+    <div class="feature-item"><div class="feature-dot">📱</div><h3 class="feature-title">iPhone & iPad Native</h3><p class="feature-body">Built specifically for iOS. Previs in your pocket — on location, in the production office, or at home.</p></div>
+  </div>
+</div>
+
+<!-- VIDEO -->
+<div style="background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 80px 48px;">
+  <div style="max-width: 900px; margin: 0 auto;">
+    <div style="font-family: DM Mono, monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cyan); margin-bottom: 24px; display: flex; align-items: center; gap: 12px;">
+      See it in action
+      <span style="flex: 1; max-width: 48px; height: 1px; background: var(--cyan); opacity: 0.4; display: block;"></span>
+    </div>
+    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; border: 1px solid var(--border);">
+      <iframe
+        src="https://www.youtube.com/embed/4ame-UUN6bY"
+        title="CineStager Demo"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+      </iframe>
+    </div>
+  </div>
+</div>
+
+
+<div class="testimonials-wrap" id="testimonials">
+  <div class="section-wrap">
+    <div class="section-label">Testimonials</div>
+    <h2 class="section-title">From the people<br>using it on set.</h2>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-quote">"Being able to walk through a scanned location and test lenses before the shoot day is a game changer for prep."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-name">Max van de Pol</div>
+          <div class="testimonial-role">Cinematographer</div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-quote">"CineStager changed the way I prep. I can walk through a location in AR, test every lens and block the scene before I've even spoken to the director. It's become an essential part of my kit."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-name">Yannick Giraud</div>
+          <div class="testimonial-role">Cinematographer</div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-quote">"Finally a tool that lets me show my DP exactly what I see in my head. I can place actors, try different angles and walk through the scene together — all before we step on set."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-name">Jetske Lieber</div>
+          <div class="testimonial-role">Director</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cta-wrap">
+  <div class="cta-inner">
+    <div class="cta-glow"></div>
+    <img src="icon.png" alt="CineStager" class="cta-icon">
+    <h2 class="cta-title">Scan, Stage,<br><span>Shoot.</span></h2>
+    <p class="cta-sub">Available now on the App Store. iPhone & iPad. Built by a filmmaker, for filmmakers.</p>
+    <a href="https://apps.apple.com/nl/app/cinestager/id6755585287" style="display:inline-block;line-height:0;">
+      <img src="appstore.svg" alt="Download on the App Store" style="height:56px;width:auto;">
+    </a>
+    <div><span class="cta-badge">iPhone & iPad · iOS 18.6+</span></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-brand">
+    <img src="icon.png" alt="CineStager">
+    <span>CINESTAGER</span>
+  </div>
+  <ul class="footer-links">
+    <li><a href="help.html">Help</a></li>
+    <li><a href="privacy.html">Privacy Policy</a></li>
+  </ul>
+  <div style="display:flex;gap:16px;align-items:center;">
+    <a href="https://www.instagram.com/cinestager/" target="_blank" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;border:1px solid var(--border);background:var(--surface);transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--cyan)'" onmouseout="this.style.borderColor='var(--border)'">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6a6a8a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+    </a>
+    <a href="https://www.youtube.com/@cinestager" target="_blank" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;border:1px solid var(--border);background:var(--surface);transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--cyan)'" onmouseout="this.style.borderColor='var(--border)'">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6a6a8a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+    </a>
+  </div>
+  <span class="footer-copy">© 2025 CineStager by Yannick Giraud</span>
+</footer>
+
+<script>
+(function() {
+  function updateHeroFade() {
+    var side = document.querySelector('.hero-screen-side');
+    if (!side || getComputedStyle(side).display === 'none') return;
+    var vw = window.innerWidth;
+    // At wide (1400px+): subtle fade starts at 15%
+    // Gets more aggressive as viewport narrows
+    var pct = Math.min(95, Math.max(50, 50 + (1400 - vw) * 0.18));
+    document.documentElement.style.setProperty('--hero-fade-start', pct.toFixed(1) + '%');
+  }
+  updateHeroFade();
+  window.addEventListener('resize', updateHeroFade);
+})();
+
+(function() {
+  var track = document.querySelector('.logo-track');
+  if (!track) return;
+
+  // Kloon de inhoud zodat we altijd genoeg hebben
+  var items = Array.from(track.children);
+  var setSize = items.length;
+
+  // We hebben al 3 sets — gebruik de eerste set als maatstaf
+  // Wacht tot fonts/images geladen zijn
+  window.addEventListener('load', function() {
+    var oneSetWidth = 0;
+
+    // Meet de breedte van één set (eerste N items)
+    var tempItems = Array.from(track.children);
+    var n = tempItems.length / 3; // 3 sets
+    for (var i = 0; i < n; i++) {
+      var rect = tempItems[i].getBoundingClientRect();
+      oneSetWidth += rect.width;
+    }
+    // Voeg gaps toe (64px per item)
+    oneSetWidth += (n) * 64;
+
+    var pos = 0;
+    var speed = 0.5; // pixels per frame
+
+    function animate() {
+      pos -= speed;
+      if (pos <= -oneSetWidth) {
+        pos += oneSetWidth;
+      }
+      track.style.transform = 'translateX(' + pos + 'px)';
+      requestAnimationFrame(animate);
+    }
+
+    requestAnimationFrame(animate);
+  });
+})();
+</script>
+</body>
+</html>
