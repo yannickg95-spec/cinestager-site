@@ -1,0 +1,33 @@
+# CineStager
+
+> CineStager is an augmented reality (AR) previsualization app for iPhone and iPad that lets filmmakers plan shots before the shoot day. Users import a scanned 3D model of a location, place it in AR at 1:1 scale, block scenes with adjustable mannequins, simulate camera bodies and lenses with accurate framelines, and export top-down shot maps to share with their crew.
+
+CineStager is built by cinematographer Yannick Giraud and is available for free on the Apple App Store. It requires iOS 18.6 or later.
+
+## What it does
+
+- **Scan a location**: Import a 3D model from the iPhone/iPad Pro LiDAR scanner, Polycam, Scaniverse, or any USDZ file (including models from Blender, SketchUp, or Unreal Engine).
+- **Choose a camera and lens**: Pick from a library of camera bodies and sensor formats, configure prime or zoom lenses, set framelines, and save presets. Supported camera brands include ARRI, Sony, Canon, RED, Kodak, Blackmagic, and DJI.
+- **Block the scene**: Place mannequins in various poses and adjust their height and position. Use occlusion mode to block real actors inside the virtual location.
+- **Export**: Every image capture automatically saves a top-down map showing camera position and actor placement, ready to share with the gaffer, AD, and DP.
+- **Two modes**: AR Mode places the scene in the real world; Game Mode lets you navigate a purely virtual environment.
+
+## Who it is for
+
+Cinematographers, directors, and production crews doing previsualization for commercials, feature films, music videos, remote location scouting, and lens testing during prep.
+
+## Key facts
+
+- Platform: iOS (iPhone and iPad), iOS 18.6 or later
+- Price: Free
+- App Store: https://apps.apple.com/nl/app/cinestager/id6755585287
+- Website: https://cinestager.com/
+- Maker: Yannick Giraud (filmmaker)
+
+## Links
+
+- [Home](https://cinestager.com/): Overview, features, and demo video
+- [Help & FAQ](https://cinestager.com/help.html): Location models, USDZ imports, lens limitations, camera support
+- [App Store](https://apps.apple.com/nl/app/cinestager/id6755585287): Download for iPhone and iPad
+- [Instagram](https://www.instagram.com/cinestager/)
+- [YouTube](https://www.youtube.com/@cinestager)

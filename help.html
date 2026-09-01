@@ -3,9 +3,67 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CineStager | Help</title>
+<title>CineStager Help & FAQ — Location Models, Lenses, AR Mode</title>
+<meta name="description" content="Answers to common CineStager questions: importing 3D location models, USDZ and LiDAR scans, why models look flat, lens limitations in AR mode, and camera support.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://cinestager.com/help.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CineStager">
+<meta property="og:url" content="https://cinestager.com/help.html">
+<meta property="og:title" content="CineStager Help & FAQ">
+<meta property="og:description" content="Answers on location models, USDZ imports, lenses in AR mode, and camera support.">
 <meta name="apple-itunes-app" content="app-id=6755585287">
 <link rel="icon" type="image/png" href="favicon.png">
+
+<!-- FAQ structured data: eligible for Google rich results and read by AI agents -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I get a Location model?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "CineStager supports any USDZ file as a Location model, including 3D models made in Blender, SketchUp or Unreal Engine, so you can plan shots in a location that hasn't been built yet. For shooting on location, scan with your iPhone or iPad Pro's LiDAR sensor during a scout. We recommend Polycam (paid) or Scaniverse (free) for accurate results."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does my Location model look flat?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "CineStager disables Apple's environmental lighting and uses a white HDRi for consistency, which makes LiDAR scans look their best. Models imported from Blender, SketchUp or Unreal Engine may look flat as a result. To fix this, bake lighting into the model's textures before exporting."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why can't I choose a wider lens in AR mode?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Apple only allows the main camera to be used for AR content. When using wider focal lengths, a gray border appears around the live camera feed. This is an Apple platform limitation, not a CineStager limitation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why is there no Map view for video captures?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The Map view is computationally heavy and would cause CineStager to crash during video recording. We hope to add this in a future update."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why is a particular camera not included?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "If you'd like to see additional cameras or profiles, send us a message and we'll do our best to add it in the next update."
+      }
+    }
+  ]
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;700;900&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
