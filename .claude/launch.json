@@ -4,7 +4,7 @@
     {
       "name": "cinestager",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "3456", "--directory", "/Users/yannickgiraud/Desktop/Websites/CineStager Site"],
+      "runtimeArgs": ["-m", "http.server", "3456", "--directory", "/Users/yannickgiraud/Developer/CineStager/CineStager Site"],
       "port": 3456
     }
   ]

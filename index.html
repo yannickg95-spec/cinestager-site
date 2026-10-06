@@ -58,7 +58,10 @@
         "Camera body and lens simulation with framelines",
         "Mannequins and real-actor occlusion for blocking",
         "Top-down shot map export",
-        "3D location import from LiDAR, Polycam, Scaniverse or any USDZ model"
+        "3D location import from LiDAR, Polycam, Scaniverse or any USDZ model",
+        "Multi-storey locations with a one-tap floor switch",
+        "Saved scenes: a location with its mannequins, ready to set up again",
+        "iCloud sync between iPhone and iPad"
       ],
       "author": {
         "@type": "Person",
@@ -206,7 +209,7 @@
 
   /* TESTIMONIALS */
   .testimonials-wrap { border-top: 1px solid var(--border); }
-  .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 64px; }
+  .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 64px; }
   .testimonial-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 16px; }
   .testimonial-stars { color: var(--cyan); font-size: 12px; letter-spacing: 3px; }
   .testimonial-quote { font-size: 13.5px; color: var(--text); line-height: 1.8; font-style: italic; flex: 1; }
@@ -363,7 +366,7 @@
       <div style="font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cyan); margin-bottom: 20px; display:flex; align-items:center; gap:12px;">How it works <span style="display:block;width:48px;height:1px;background:var(--cyan);opacity:0.4;"></span></div>
       <div style="font-size: 52px; margin-bottom: 16px; line-height:1;">📍</div>
       <h2 style="font-family: 'Unbounded', sans-serif; font-size: clamp(28px, 3.5vw, 44px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 20px;">Scan your<br>shooting location.</h2>
-      <p style="font-size: 16px; color: var(--muted); line-height: 1.8; max-width: 420px;">Use the built-in LiDAR scanner or apps like Polycam and Scaniverse to create a precise 3D model of your location. Import it directly into CineStager with one tap, or any USDZ model.</p>
+      <p style="font-size: 16px; color: var(--muted); line-height: 1.8; max-width: 420px;">Scan it during your recce with a LiDAR app like Polycam or Scaniverse, or bring any USDZ model — even a set that only exists in Blender or SketchUp. Mark its floors once on import, and multi-storey buildings are just a tap away.</p>
     </div>
     <div style="border-radius: 16px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 24px 64px rgba(0,0,0,0.4); background: transparent;">
       <model-viewer
@@ -481,6 +484,9 @@
     <div class="feature-item"><div class="feature-dot">🗺️</div><h3 class="feature-title">Top-Down Map Export</h3><p class="feature-body">Every image capture automatically saves a bird's-eye map showing camera position and actor placement.</p></div>
     <div class="feature-item"><div class="feature-dot">📦</div><h3 class="feature-title">3D Location Library</h3><p class="feature-body">Import scans from LiDAR, Polycam, Scaniverse or any photogrammetry app. Build a library of locations to reuse.</p></div>
     <div class="feature-item"><div class="feature-dot">📱</div><h3 class="feature-title">iPhone & iPad Native</h3><p class="feature-body">Built specifically for iOS. Previs in your pocket — on location, in the production office, or at home.</p></div>
+    <div class="feature-item"><div class="feature-dot">🏢</div><h3 class="feature-title">Multi-storey Locations</h3><p class="feature-body">Mark a building's floors once when you import it, then switch storeys with one tap — the location and your mannequins move with it.</p></div>
+    <div class="feature-item"><div class="feature-dot">🎬</div><h3 class="feature-title">Saved Scenes</h3><p class="feature-body">Save a location with its mannequins as a scene, and set it up again in AR or Game mode whenever you need it.</p></div>
+    <div class="feature-item"><div class="feature-dot">☁️</div><h3 class="feature-title">iCloud Sync</h3><p class="feature-body">Your locations, scenes and shots sync between your iPhone and iPad through iCloud.</p></div>
   </div>
 </div>
 
@@ -515,14 +521,6 @@
         <p class="testimonial-quote">"Being able to walk through a scanned location and test lenses before the shoot day is a game changer for prep."</p>
         <div class="testimonial-author">
           <div class="testimonial-name">Max van de Pol</div>
-          <div class="testimonial-role">Cinematographer</div>
-        </div>
-      </div>
-      <div class="testimonial-card">
-        <div class="testimonial-stars">★★★★★</div>
-        <p class="testimonial-quote">"CineStager changed the way I prep. I can walk through a location in AR, test every lens and block the scene before I've even spoken to the director. It's become an essential part of my kit."</p>
-        <div class="testimonial-author">
-          <div class="testimonial-name">Yannick Giraud</div>
           <div class="testimonial-role">Cinematographer</div>
         </div>
       </div>
@@ -568,7 +566,7 @@
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6a6a8a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
     </a>
   </div>
-  <span class="footer-copy">© 2025 CineStager by Yannick Giraud</span>
+  <span class="footer-copy">© 2026 CineStager by Yannick Giraud</span>
 </footer>
 
 <script>
