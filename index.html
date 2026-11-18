@@ -278,6 +278,7 @@
   .choice .ic { width: calc(44 * var(--p)); height: calc(44 * var(--p)); border-radius: calc(12 * var(--p)); display: flex; align-items: center; justify-content: center; flex: 0 0 auto; }
   .choice .ic svg { width: calc(24 * var(--p)); height: calc(24 * var(--p)); }
   .choice b { display: block; font-size: calc(17 * var(--p)); font-weight: 600; color: #fff; }
+  .choice .kind { display: inline-block; vertical-align: middle; margin-left: calc(6 * var(--p)); padding: calc(2 * var(--p)) calc(7 * var(--p)); border-radius: 100px; background: rgba(191,90,242,0.18); color: #d9a3f7; font-size: calc(11 * var(--p)); font-weight: 600; }
   .choice .best { display: block; font-size: calc(15 * var(--p)); font-weight: 500; }
   .choice .spd { display: flex; align-items: center; gap: calc(4 * var(--p)); font-size: calc(12 * var(--p)); font-weight: 600; margin-top: calc(4 * var(--p)); }
   .choice .spd svg { width: calc(12 * var(--p)); height: calc(12 * var(--p)); }
@@ -449,7 +450,7 @@
           <div class="nav"><span>Cancel</span><b>New Scan</b><i></i></div>
           <div class="choice on" data-scan="hybrid">
             <div class="ic" style="background:rgba(191,90,242,0.15);color:#bf5af2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M10 6l6.5 3.7v7.5L10 21l-6.5-3.8V9.7z"/><path d="M3.5 9.7L10 13.4l6.5-3.7M10 13.4V21"/><path d="M18.5 2.5l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z" fill="currentColor" stroke="none"/></svg></div>
-            <div><b>Hybrid Scan</b><span class="best" style="color:#bf5af2">Any space, indoors or out</span><span class="spd" style="color:#ff9f0a"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Slow to process</span></div>
+            <div><b>Hybrid Scan <span class="kind">LiDAR + Gaussian Splats</span></b><span class="best" style="color:#bf5af2">Any space, indoors or out</span><span class="spd" style="color:#ff9f0a"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Slow to process</span></div>
             <svg class="go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><use href="#i-chev-r"/></svg>
           </div>
           <div class="choice" data-scan="lidar">
