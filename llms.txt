@@ -22,7 +22,7 @@ CineStager is built by cinematographer Yannick Giraud and is free to download on
 
 - Camera bodies and sensor modes from ARRI, Sony, Canon, RED, Fujifilm, Blackmagic, Nikon, Panasonic and DJI (Ronin 4D), plus film formats: Super 8, 16 mm, 35 mm, VistaVision, 65 mm and IMAX.
 - 34 zooms, 31 prime sets, 14 anamorphic zooms and 33 anamorphic prime sets; front and rear adapters, T-stops (converted to real f-numbers for depth of field), custom lens sets, large format 65.
-- True-to-life depth of field from focal length, stop, sensor and real distances: in Game mode on any device, in AR from LiDAR depth. Focus stays on a mannequin when it is moved, turned or posed.
+- True-to-life depth of field from focal length, stop, sensor and real distances: in Game mode on any device, in AR from LiDAR depth, also on the real world around you, without a location or mannequins. Focus stays on a mannequin when it is moved, turned or posed.
 - Lens character: vintage looks, swirly bokeh, soap-bubble highlights and anamorphic stretch.
 
 ## Light
