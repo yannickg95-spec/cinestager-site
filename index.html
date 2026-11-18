@@ -267,9 +267,10 @@
   .ctx svg { width: calc(16 * var(--p)); height: calc(16 * var(--p)); }
 
   /* scan: the New Scan sheet */
-  #splatCanvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-  .sheet { position: absolute; left: 50%; bottom: 0; transform: translate(-50%, 6%); width: calc(420 * var(--p)); z-index: 20; background: #1c1c1e; border-radius: calc(14 * var(--p)) calc(14 * var(--p)) 0 0; padding: 0 calc(16 * var(--p)) calc(16 * var(--p)); box-shadow: 0 0 calc(30 * var(--p)) rgba(0,0,0,0.5); transition: transform 0.35s ease-out; }
-  .scene.on .sheet { transform: translate(-50%, 0); }
+  .scene[data-scene="scan"] { background: radial-gradient(ellipse 70% 80% at 65% 45%, #1a1f2b 0%, #0a0c11 70%); }
+  .loc-stage { position: absolute; top: 0; bottom: 0; left: 38%; right: 8%; }
+  @media (max-width: 760px) { .loc-stage { left: 45%; right: 0; } }
+  .sheet { width: calc(330 * var(--p)); background: #1c1c1e; border-radius: calc(14 * var(--p)); padding: 0 calc(14 * var(--p)) calc(14 * var(--p)); }
   .sheet .grab { width: calc(36 * var(--p)); height: calc(5 * var(--p)); border-radius: 3px; background: rgba(235,235,245,0.3); margin: calc(5 * var(--p)) auto 0; }
   .sheet .nav { display: flex; align-items: center; height: calc(40 * var(--p)); font-size: calc(17 * var(--p)); }
   .sheet .nav span { flex: 1; color: #3ecfff; } .sheet .nav b { font-weight: 600; } .sheet .nav i { flex: 1; }
@@ -370,7 +371,7 @@
     .readout .preset { display: none; }
     .sunbar input { width: calc(120 * var(--p)); } .sunbar .now { display: none; }
     .capbar { left: calc(66 * var(--p)); right: calc(72 * var(--p)); }
-    .adjust, .sheet { width: calc(400 * var(--p)); }
+    .adjust { width: calc(400 * var(--p)); } .sheet { width: calc(280 * var(--p)); }
     .caption { margin-top: 26px; min-height: 190px; }
     .numbers { grid-template-columns: 1fr 1fr; margin: 80px 14px 0; }
     .num:nth-child(3) { border-left: 0; }
@@ -447,8 +448,8 @@
 
       <!-- SCAN: New Scan -->
       <div class="scene" data-scene="scan">
-        <canvas id="splatCanvas" aria-hidden="true"></canvas>
-        <div class="sheet">
+        <div class="loc-stage" id="locStage"></div>
+        <div class="sheet menu" data-anchor="tab-scan">
           <div class="grab"></div>
           <div class="nav"><span>Cancel</span><b>New Scan</b><i></i></div>
           <div class="choice on" data-scan="hybrid">
@@ -676,7 +677,7 @@ var HIGHLIGHTS = {
   function show(key) {
     current = key;
     btns.forEach(function(b) { var on = b.dataset.tab === key; b.setAttribute('aria-selected', on ? 'true' : 'false'); b.classList.toggle('on', on); });
-    screen.classList.toggle('lib', key === 'raw' || key === 'map' || key === 'scan');
+    screen.classList.toggle('lib', key === 'raw' || key === 'map');
     place();
     scenes.forEach(function(s) { s.classList.toggle('on', s.dataset.scene === key); });
     cap.classList.add('swap');
@@ -771,67 +772,20 @@ var HIGHLIGHTS = {
   });
 })();
 
-// Scan: a screenshot rebuilt from soft splats (drawn once, then orbited);
-// the segmented control picks LiDAR, Splats or Hybrid.
+// Scan: the scanned location in 3D, loaded the first time the scene shows.
 (function() {
-  var c = document.getElementById('splatCanvas');
-  if (!c) return;
-  var ctx = c.getContext('2d'), layer = null, W = 0, H = 0, mode = 'hybrid', running = false;
-  var dpr = Math.min(2, window.devicePixelRatio || 1), img = new Image();
-  var box = { x: 0.3, y: 0.3, w: 0.36, h: 0.52 };
-  img.src = 'screen5.jpg';
-  function resize() { var r = c.getBoundingClientRect(); W = r.width; H = r.height; c.width = W * dpr; c.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); layer = null; }
-  function build() {
-    if (!img.complete || !W) return;
-    var sw = 160, sh = 90, off = document.createElement('canvas'); off.width = sw; off.height = sh;
-    var o = off.getContext('2d'), s = Math.max(sw / img.width, sh / img.height);
-    o.filter = 'saturate(1.2)';
-    o.drawImage(img, (sw - img.width * s) / 2, (sh - img.height * s) / 2, img.width * s, img.height * s);
-    var d = o.getImageData(0, 0, sw, sh).data;
-    layer = document.createElement('canvas'); layer.width = W * 1.1 * dpr; layer.height = H * 1.1 * dpr;
-    var l = layer.getContext('2d'); l.scale(dpr, dpr);
-    var LW = W * 1.1, LH = H * 1.1;
-    for (var i = 0; i < 9000; i++) {
-      var x = Math.random(), y = Math.random(), k = ((Math.floor(y * sh) * sw) + Math.floor(x * sw)) * 4;
-      var r = (0.004 + Math.random() * Math.random() * 0.022) * LW, a = 0.45 + Math.random() * 0.45;
-      var col = d[k] + ',' + d[k + 1] + ',' + d[k + 2];
-      l.save(); l.translate(x * LW, y * LH); l.rotate(Math.random() * 3.14); l.scale(1, 0.35 + Math.random() * 0.65);
-      var g = l.createRadialGradient(0, 0, 0, 0, 0, r); g.addColorStop(0, 'rgba(' + col + ',' + a + ')'); g.addColorStop(1, 'rgba(' + col + ',0)');
-      l.fillStyle = g; l.beginPath(); l.arc(0, 0, r, 0, 6.283); l.fill(); l.restore();
-    }
-  }
-  function draw(t) {
-    if (!W) resize();
-    if (!layer) build();
-    ctx.fillStyle = '#06070b'; ctx.fillRect(0, 0, W, H);
-    var ox = -W * 0.05 + Math.sin(t / 5000) * W * 0.02, oy = -H * 0.05;
-    var bx = box.x * W + Math.sin(t / 5000) * W * 0.012, by = box.y * H, bw = box.w * W, bh = box.h * H;
-    if (layer && mode !== 'lidar') {
-      ctx.save();
-      if (mode === 'hybrid') { ctx.beginPath(); ctx.rect(0, 0, W, H); ctx.rect(bx + bw, by, -bw, bh); ctx.clip('evenodd'); }
-      ctx.drawImage(layer, ox, oy, W * 1.1, H * 1.1);
-      ctx.restore();
-    }
-    if (mode !== 'splats') {
-      ctx.fillStyle = 'rgba(150,160,180,0.2)'; ctx.fillRect(bx, by, bw, bh);
-      ctx.strokeStyle = 'rgba(62,207,255,0.32)'; ctx.lineWidth = 0.7;
-      for (var gx = 1; gx < 8; gx++) { ctx.beginPath(); ctx.moveTo(bx + bw * gx / 8, by); ctx.lineTo(bx + bw * gx / 8, by + bh); ctx.stroke(); }
-      for (var gy = 1; gy < 6; gy++) { ctx.beginPath(); ctx.moveTo(bx, by + bh * gy / 6); ctx.lineTo(bx + bw, by + bh * gy / 6); ctx.stroke(); }
-      ctx.strokeStyle = 'rgba(62,207,255,0.9)'; ctx.lineWidth = 1.2; ctx.strokeRect(bx, by, bw, bh);
-    }
-    if (running) requestAnimationFrame(draw);
-  }
-  img.onload = function() { layer = null; };
+  var stage = document.getElementById('locStage'), loaded = false;
   document.querySelectorAll('.choice').forEach(function(b) {
-    function pick() { mode = b.dataset.scan; document.querySelectorAll('.choice').forEach(function(x) { x.classList.toggle('on', x === b); }); }
-    b.addEventListener('click', pick); b.addEventListener('mouseenter', pick);
+    b.addEventListener('click', function() { document.querySelectorAll('.choice').forEach(function(x) { x.classList.toggle('on', x === b); }); });
   });
   document.addEventListener('scene', function(e) {
-    var on = e.detail === 'scan';
-    if (on && !running) { running = true; resize(); requestAnimationFrame(draw); }
-    if (!on) running = false;
+    if (e.detail !== 'scan' || loaded) return;
+    loaded = true;
+    var js = document.createElement('script'); js.type = 'module';
+    js.src = 'https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js';
+    document.head.appendChild(js);
+    stage.innerHTML = '<model-viewer src="location.glb" alt="A location scanned with CineStager, in 3D" auto-rotate auto-rotate-delay="0" rotation-per-second="14deg" camera-controls disable-zoom interaction-prompt="none" camera-orbit="30deg 62deg auto" shadow-intensity="0" exposure="1.15" environment-image="neutral" style="width:100%;height:100%;background:transparent;--poster-color:transparent;touch-action:pan-y"></model-viewer>';
   });
-  window.addEventListener('resize', function() { W = 0; });
 })();
 </script>
 </body>
