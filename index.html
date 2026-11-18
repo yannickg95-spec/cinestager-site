@@ -329,15 +329,20 @@
   @keyframes fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
   /* NUMBERS */
-  .numbers { max-width: 1056px; margin: 110px auto 0; display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .numbers { max-width: 1056px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
   .num { padding: 34px 24px; text-align: center; }
   .num + .num { border-left: 1px solid var(--border); }
   .num b { display: block; font-family: "Unbounded", sans-serif; font-size: clamp(28px, 3.6vw, 42px); font-weight: 900; letter-spacing: -0.02em; }
   .num span { font-family: "DM Mono", monospace; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
 
-  .brands { max-width: 1120px; margin: 0 auto; padding: 30px 32px 0; display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 18px 44px; }
-  .brands img { height: 26px; width: auto; opacity: 0.45; filter: brightness(0) invert(1); }
-  .brands .word { font-family: "Unbounded", sans-serif; font-weight: 700; font-size: 15px; letter-spacing: 0.05em; color: #fff; opacity: 0.45; }
+  .brands { margin: 110px 0 0; overflow: hidden; padding: 6px 0 34px; -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent); }
+  .brands-track { display: flex; width: max-content; animation: brands 38s linear infinite; }
+  .brands:hover .brands-track { animation-play-state: paused; }
+  .brands-set { display: flex; align-items: center; gap: 64px; padding-right: 64px; }
+  .brands img { height: 26px; width: auto; opacity: 0.45; filter: brightness(0) invert(1); flex: 0 0 auto; }
+  .brands .word { font-family: "Unbounded", sans-serif; font-weight: 700; font-size: 15px; letter-spacing: 0.05em; color: #fff; opacity: 0.45; white-space: nowrap; }
+  @keyframes brands { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .brands-track { animation: none; } }
 
   /* PRICE + CTA */
   .cta { max-width: 1120px; margin: 120px auto 0; padding: 0 32px; }
@@ -374,7 +379,8 @@
     .capbar { left: calc(66 * var(--p)); right: calc(72 * var(--p)); }
     .adjust { width: calc(400 * var(--p)); } .sheet { width: calc(280 * var(--p)); }
     .caption { margin-top: 26px; min-height: 190px; }
-    .numbers { grid-template-columns: 1fr 1fr; margin: 80px 14px 0; }
+    .numbers { grid-template-columns: 1fr 1fr; margin: 0 14px; }
+    .brands { margin-top: 70px; } .brands-set { gap: 44px; padding-right: 44px; } .brands img { height: 22px; }
     .num:nth-child(3) { border-left: 0; }
     .num:nth-child(-n+2) { border-bottom: 1px solid var(--border); }
     .cta { margin-top: 80px; padding: 0 14px; }
@@ -593,6 +599,14 @@
   </div>
 </section>
 
+<!-- CAMERA BRANDS -->
+<div class="brands" aria-label="Camera brands">
+  <div class="brands-track">
+    <div class="brands-set"><img src="logo_arri.png" alt="ARRI"><img src="logo_sony.png" alt="Sony"><img src="logo_canon.png" alt="Canon"><img src="logo_red.png" alt="RED" style="height:23px"><span class="word">FUJIFILM</span><img src="logo_blackmagic.png" alt="Blackmagic Design"><span class="word">NIKON</span><span class="word">PANASONIC</span><img src="logo_dji.png" alt="DJI"><span class="word">FILM</span></div>
+    <div class="brands-set" aria-hidden="true"><img alt="" src="logo_arri.png" data-alt="ARRI"><img alt="" src="logo_sony.png" data-alt="Sony"><img alt="" src="logo_canon.png" data-alt="Canon"><img alt="" src="logo_red.png" data-alt="RED" style="height:23px"><span class="word">FUJIFILM</span><img alt="" src="logo_blackmagic.png" data-alt="Blackmagic Design"><span class="word">NIKON</span><span class="word">PANASONIC</span><img alt="" src="logo_dji.png" data-alt="DJI"><span class="word">FILM</span></div>
+  </div>
+</div>
+
 <!-- NUMBERS -->
 <div class="numbers">
   <div class="num"><b>3</b><span>Modes</span></div>
@@ -600,9 +614,7 @@
   <div class="num"><b>8</b><span>People · 5 poses</span></div>
   <div class="num"><b>1</b><span>Price, once</span></div>
 </div>
-<div class="brands" aria-label="Camera brands">
-  <img src="logo_arri.png" alt="ARRI"><img src="logo_sony.png" alt="Sony"><img src="logo_canon.png" alt="Canon"><img src="logo_red.png" alt="RED" style="height:23px"><span class="word">FUJIFILM</span><img src="logo_blackmagic.png" alt="Blackmagic Design"><span class="word">NIKON</span><span class="word">PANASONIC</span><img src="logo_dji.png" alt="DJI"><span class="word">FILM</span>
-</div>
+
 
 <!-- PRICE + CTA -->
 <section class="cta" id="pricing">
