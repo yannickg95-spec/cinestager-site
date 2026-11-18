@@ -13,7 +13,7 @@ CineStager is built by cinematographer Yannick Giraud and is free to download on
 
 ## Scan
 
-- Built-in LiDAR scanner with three kinds of scan: **LiDAR** (precise model, ready in minutes), **Gaussian splats** (photoreal, trained on the device) and **Hybrid** (LiDAR model up close, splats beyond the scanner's reach).
+- Built-in scanner with two kinds of scan: **LiDAR** (a sharp, measured model, ready in minutes) and **Hybrid** (LiDAR + Gaussian splats: the LiDAR model up close, photoreal splats trained on the device for everything beyond the scanner's reach).
 - Import any USDZ (also from Blender, SketchUp or Unreal Engine) or Gaussian splats from a .ply file.
 - Location Library: crop locations, multi-storey buildings with a floor switch, saved scenes, share a whole location (model, splats, floors, geography) as one .csloc file, iCloud sync between iPhone and iPad.
 - Locations get a place on earth and north, used by Sunseeker.
@@ -60,6 +60,7 @@ CineStager is built by cinematographer Yannick Giraud and is free to download on
 ## Links
 
 - [Home](https://cinestager.com/): Modes, scanning, lenses, Sunseeker, pricing and device requirements
+- [Features](https://cinestager.com/features.html): Everything the app can do, by chapter: modes, frame, scan, light, block, capture and share
 - [Help & FAQ](https://cinestager.com/help.html): Scans and splats, sharing locations, depth of field, RAW film look, floors, scenes, pricing
 - [App Store](https://apps.apple.com/nl/app/cinestager/id6755585287): Download for iPhone and iPad
 - [CinePlanner](https://cineplannerapp.com): Shot lists and scene maps, by the same maker
