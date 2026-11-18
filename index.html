@@ -285,7 +285,9 @@
   .choice .go { margin-left: auto; width: calc(12 * var(--p)); height: calc(12 * var(--p)); color: rgba(235,235,245,0.3); }
 
   /* sun: sky + SunTimeBar */
-  .shot-lens { transform: translateX(-10%) scale(1.2); transform-origin: 50% 35%; }
+  .shot-lens-fill { filter: blur(calc(18 * var(--p))) brightness(0.8); transform: scale(1.1); }
+  .scene > .bg.shot-lens { width: 81.9%; right: auto; -webkit-mask-image: linear-gradient(to right, #000 88%, transparent); mask-image: linear-gradient(to right, #000 88%, transparent); }
+  @media (max-width: 760px) { .scene > .bg.shot-lens { width: 100%; object-position: 30% 50%; -webkit-mask-image: none; mask-image: none; } }
   .sun-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
   .sunbar { position: absolute; left: 50%; bottom: calc(52 * var(--p)); transform: translateX(-50%); z-index: 9; height: calc(44 * var(--p)); border-radius: 100px; display: flex; align-items: center; gap: calc(12 * var(--p)); padding: 0 calc(12 * var(--p)); background: rgba(20,22,30,0.62); border: 1px solid rgba(255,255,255,0.12); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); white-space: nowrap; }
   .sunbar .chip { display: flex; align-items: center; gap: calc(4 * var(--p)); height: calc(26 * var(--p)); padding: 0 calc(8 * var(--p)); border-radius: 100px; background: rgba(255,255,255,0.06); font-size: calc(11 * var(--p)); font-weight: 500; color: #fff; }
@@ -464,6 +466,7 @@
 
       <!-- LENS: depth of field, focused on her -->
       <div class="scene" data-scene="lens">
+        <img class="bg shot-lens-fill" src="shot-bokeh.jpg?v=2" alt="">
         <img class="bg shot-lens" src="shot-bokeh.jpg?v=2" alt="A mannequin in focus against a bokeh background, rendered by CineStager's depth of field">
         <div class="sensor"></div>
         <div class="menu lens-menu" data-anchor="tab-lens">
