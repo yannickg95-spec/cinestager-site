@@ -57,14 +57,14 @@
         "Three modes: Viewfinder (director's viewfinder with the device's own cameras, including ultra-wide), AR and Game mode",
         "Location scanning: LiDAR models, photoreal Gaussian splats, or Hybrid (LiDAR up close, splats beyond)",
         "Import USDZ models and Gaussian splats (.ply); share whole locations as one .csloc file",
-        "Camera bodies and sensor formats from ARRI, Sony, Canon, RED, Blackmagic, Fujifilm, Nikon, Panasonic, DJI and film",
-        "34 zooms and 27 prime sets, anamorphic lenses and adapters, T-stops",
+        "Camera bodies and sensor formats from ARRI, Sony, Canon, RED, Blackmagic, Fujifilm, Nikon, Panasonic and DJI, plus film formats from Super 8 to 65 mm and IMAX",
+        "34 zooms, 31 prime sets, 14 anamorphic zooms and 33 anamorphic prime sets; front and rear adapters, T-stops, custom lens sets, large format 65 and IMAX",
         "True-to-life depth of field in AR (from LiDAR depth) and Game mode",
         "Lens character: vintage looks, bokeh, swirl and anamorphic stretch",
-        "Sun path for any date and time in AR, Viewfinder and Game mode",
+        "Sun path for any date and time in AR, Viewfinder and Game mode; in AR and Viewfinder no scan is needed",
         "Eight mannequins in five poses with custom colours; focus that stays on a mannequin",
-        "ProRAW capture with a film look and adjustments (iPhone Pro)",
-        "Video with sound and the camera's path on the map",
+        "Apple ProRAW DNG capture in Viewfinder mode with an adjustable film look (iPhone Pro)",
+        "Clean video with optional sound; a map with the camera's route and how people moved",
         "Top-down maps with camera and actor positions for every shot",
         "Multi-storey locations, saved scenes, iCloud sync, CinePlanner integration"
       ],
@@ -118,6 +118,9 @@
   }
   nav.scrolled { background: rgba(5,5,10,0.82); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom-color: var(--border); }
   .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+  .nav-links a { white-space: nowrap; }
+  @media (max-width: 1240px) { .nav-links { gap: 18px; } .nav-social { display: none !important; } }
+  @media (max-width: 1080px) { .nav-links .nav-help { display: none; } }
   .nav-links a { font-family: "DM Mono", monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
   .nav-links a:hover { color: var(--text); }
   .nav-cta { background: var(--cyan) !important; color: var(--bg) !important; padding: 8px 20px; border-radius: 100px; font-weight: 500 !important; transition: opacity 0.2s !important; }
@@ -395,8 +398,8 @@
     <li><a href="#light">Light</a></li>
     <li><a href="#block">Block</a></li>
     <li><a href="#pricing">Pricing</a></li>
-    <li><a href="help.html">Help</a></li>
-    <li style="display:flex;gap:10px;align-items:center;">
+    <li class="nav-help"><a href="help.html">Help</a></li>
+    <li class="nav-social" style="display:flex;gap:10px;align-items:center;">
       <a class="social" href="https://www.instagram.com/cinestager/" target="_blank" rel="noopener" aria-label="CineStager on Instagram">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7a7a9a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
       </a>
@@ -553,7 +556,7 @@
         <ul class="ticks">
           <li><b>Multi-storey</b> locations with per-floor maps</li>
           <li><b>Saved scenes</b>: a location with its mannequins, set up again in seconds</li>
-          <li><b>Share a whole location</b> as one .csloc file</li>
+          <li><b>Share a whole location</b> as one .csloc file — the only way a Hybrid scan travels complete</li>
           <li><b>iCloud sync</b> between iPhone and iPad</li>
         </ul>
       </div>
@@ -572,7 +575,7 @@
           <p>Pick the exact body and sensor mode you're shooting — down to open gate and crop modes — and the lens set you're renting. CineStager draws the true field of view, with framelines and anamorphic squeeze.</p>
         </div>
         <div class="chips">
-          <span class="chip">34 zooms</span><span class="chip">27 prime sets</span><span class="chip">Anamorphic &amp; adapters</span><span class="chip">T-stops</span><span class="chip">Your own lens sets</span><span class="chip">Large format 65</span>
+          <span class="chip">34 zooms</span><span class="chip">31 prime sets</span><span class="chip">14 anamorphic zooms</span><span class="chip">33 anamorphic sets</span><span class="chip">Front &amp; rear adapters</span><span class="chip">T-stops</span><span class="chip">Your own lens sets</span><span class="chip">Large format 65 &amp; IMAX</span>
         </div>
       </div>
       <div class="frame reveal"><img src="screen2.jpg" alt="Camera and lens settings in CineStager"><span class="todo-tag">Screenshot: new lens settings / lens set picker</span></div>
@@ -580,9 +583,9 @@
   </div>
   <div class="logo-strip" aria-label="Supported camera brands">
     <div class="logo-track">
-      <img src="logo_arri.png" alt="ARRI"><img src="logo_sony.png" alt="Sony"><img src="logo_canon.png" alt="Canon"><img src="logo_red.png" alt="RED" style="height:31px"><span class="word">FUJIFILM</span><img src="logo_blackmagic.png" alt="Blackmagic Design"><span class="word">NIKON</span><span class="word">PANASONIC</span><img src="logo_dji.png" alt="DJI"><img src="logo_kodak.png" alt="Kodak film formats">
-      <img src="logo_arri.png" alt=""><img src="logo_sony.png" alt=""><img src="logo_canon.png" alt=""><img src="logo_red.png" alt="" style="height:31px"><span class="word" aria-hidden="true">FUJIFILM</span><img src="logo_blackmagic.png" alt=""><span class="word" aria-hidden="true">NIKON</span><span class="word" aria-hidden="true">PANASONIC</span><img src="logo_dji.png" alt=""><img src="logo_kodak.png" alt="">
-      <img src="logo_arri.png" alt=""><img src="logo_sony.png" alt=""><img src="logo_canon.png" alt=""><img src="logo_red.png" alt="" style="height:31px"><span class="word" aria-hidden="true">FUJIFILM</span><img src="logo_blackmagic.png" alt=""><span class="word" aria-hidden="true">NIKON</span><span class="word" aria-hidden="true">PANASONIC</span><img src="logo_dji.png" alt=""><img src="logo_kodak.png" alt="">
+      <img src="logo_arri.png" alt="ARRI"><img src="logo_sony.png" alt="Sony"><img src="logo_canon.png" alt="Canon"><img src="logo_red.png" alt="RED" style="height:31px"><span class="word">FUJIFILM</span><img src="logo_blackmagic.png" alt="Blackmagic Design"><span class="word">NIKON</span><span class="word">PANASONIC</span><img src="logo_dji.png" alt="DJI"><span class="word">FILM</span>
+      <img src="logo_arri.png" alt=""><img src="logo_sony.png" alt=""><img src="logo_canon.png" alt=""><img src="logo_red.png" alt="" style="height:31px"><span class="word" aria-hidden="true">FUJIFILM</span><img src="logo_blackmagic.png" alt=""><span class="word" aria-hidden="true">NIKON</span><span class="word" aria-hidden="true">PANASONIC</span><img src="logo_dji.png" alt=""><span class="word" aria-hidden="true">FILM</span>
+      <img src="logo_arri.png" alt=""><img src="logo_sony.png" alt=""><img src="logo_canon.png" alt=""><img src="logo_red.png" alt="" style="height:31px"><span class="word" aria-hidden="true">FUJIFILM</span><img src="logo_blackmagic.png" alt=""><span class="word" aria-hidden="true">NIKON</span><span class="word" aria-hidden="true">PANASONIC</span><img src="logo_dji.png" alt=""><span class="word" aria-hidden="true">FILM</span>
     </div>
   </div>
   <div class="section-wrap" style="padding-top:110px;">
@@ -641,7 +644,7 @@
         <div class="section-label" style="color:var(--sun)">03 · Light</div>
         <h2 class="section-title">Know where<br><span class="light" style="color:var(--sun)">the sun will be.</span></h2>
         <div class="body">
-          <p>Sunseeker draws the sun's path over your shot for any date and time — in AR, in Game mode on your scanned location, and in Viewfinder mode by the compass. Find the golden-hour window, the backlight, the moment the shadow leaves the doorway.</p>
+          <p>Sunseeker draws the sun's path over your shot for any date and time. In AR and Viewfinder it works anywhere, straight away — tap the real sun to set north exactly. In Game mode it follows your scanned location. Find the golden-hour window, the backlight, the moment the shadow leaves the doorway.</p>
           <p>Pick a date and time once; every mode keeps it.</p>
         </div>
       </div>
@@ -672,12 +675,12 @@
 <section class="band" id="block">
   <div class="section-wrap">
     <div class="split">
-      <div class="frame reveal media-first"><img src="screen3.jpg" alt="Mannequins in CineStager"><span class="todo-tag">Screenshot: new mannequins — 8 people, poses, colour picker</span></div>
+      <div class="frame reveal media-first"><img src="screen3.jpg" alt="Mannequins in CineStager"><span class="todo-tag">Screenshot: new mannequins — 8 people, 5 poses, colour picker</span></div>
       <div>
         <div class="section-label">04 · Block</div>
         <h2 class="section-title">Put people<br><span class="light">in the frame.</span></h2>
         <div class="body">
-          <p>Eight people in five poses, each with their own skin, hair and wardrobe colours. Set their height, place them on the right floor, and switch poses without losing their mark.</p>
+          <p>Eight people in five poses — standing, walking, sitting, on the ground and lying — each with their own skin, hair, top and bottom colours. Set their height, place them on the right floor, and switch poses without losing their mark.</p>
           <p>In AR, people occlusion lets you block <strong>real actors</strong> inside the virtual location.</p>
         </div>
       </div>
@@ -696,7 +699,7 @@
       <div>
         <h3>RAW with a film look.</h3>
         <div class="body">
-          <p>Shoot <strong>ProRAW</strong> in Viewfinder mode and the Shot Library gives it a cinematic film look. Fine-tune exposure, white balance and tint, and add 8, 16 or 35 mm grain — then share the look, or the original DNG.</p>
+          <p>In Viewfinder mode, save an <strong>Apple ProRAW</strong> DNG with every photo. The Shot Library gives it a cinematic film look: fine-tune exposure, white balance and tint, add 8, 16 or 35 mm grain — then share the photo, the film-look JPEG or the original DNG.</p>
         </div>
         <span class="req">ProRAW needs an iPhone Pro</span>
       </div>
@@ -714,10 +717,10 @@
       <div>
         <h3>Maps for every shot.</h3>
         <div class="body">
-          <p>Each still saves a top-down map with the camera and every person on it. Videos record sound and draw the camera's path. Shot something without a location? Link it to one afterwards.</p>
+          <p>Each still saves a top-down map with the camera and every person on it. Videos get one too, with the camera's route and how people moved. Shot something without a location — even in Viewfinder mode? Link one afterwards in the Shot Library.</p>
         </div>
         <ul class="ticks">
-          <li><b>Clean video</b>: what the camera sees, without the interface</li>
+          <li><b>Clean video</b>: mannequins, location, depth of field and framelines — without the buttons. Sound optional</li>
           <li>Camera, lens, stop and distances in every file's metadata</li>
           <li>Shots and maps appear in <a href="https://cineplannerapp.com" style="color:var(--cyan);text-decoration:none;">CinePlanner</a> automatically, through iCloud</li>
         </ul>
@@ -783,7 +786,7 @@
       <table class="compat">
         <thead><tr><th>Feature</th><th>Needs</th></tr></thead>
         <tbody>
-          <tr><td>Viewfinder, Game mode, Sunseeker, mannequins</td><td>Any supported iPhone or iPad</td></tr>
+          <tr><td>Viewfinder, AR, Game mode, Sunseeker, mannequins</td><td>Any supported iPhone or iPad (AR with a scanned location works best with LiDAR)</td></tr>
           <tr><td>LiDAR scanning, depth of field in AR</td><td>An iPhone Pro or iPad Pro with LiDAR</td></tr>
           <tr><td>Gaussian splats &amp; Hybrid</td><td>LiDAR, iOS 27, and an A14 / M1 chip or newer</td></tr>
           <tr><td>ProRAW with film look</td><td>An iPhone Pro, in Viewfinder mode</td></tr>

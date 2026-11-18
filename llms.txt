@@ -15,35 +15,35 @@ CineStager is built by cinematographer Yannick Giraud and is free to download on
 
 - Built-in LiDAR scanner with three kinds of scan: **LiDAR** (precise model, ready in minutes), **Gaussian splats** (photoreal, trained on the device) and **Hybrid** (LiDAR model up close, splats beyond the scanner's reach).
 - Import any USDZ (also from Blender, SketchUp or Unreal Engine) or Gaussian splats from a .ply file.
-- Location Library: crop locations, multi-storey buildings with a floor switch, saved scenes, share a whole location as one .csloc file, iCloud sync between iPhone and iPad.
+- Location Library: crop locations, multi-storey buildings with a floor switch, saved scenes, share a whole location (model, splats, floors, geography) as one .csloc file, iCloud sync between iPhone and iPad.
 - Locations get a place on earth and north, used by Sunseeker.
 
 ## Frame
 
-- Camera bodies and sensor modes from ARRI, Sony, Canon, RED, Fujifilm, Blackmagic, Nikon, Panasonic, DJI and film formats.
-- 34 zooms and 27 prime sets, anamorphic lenses and adapters, T-stops, custom lens sets, large-format lenses.
-- True-to-life depth of field from focal length, stop, sensor and real distances: in Game mode on any device, in AR from LiDAR depth. Focus can stay on a mannequin.
+- Camera bodies and sensor modes from ARRI, Sony, Canon, RED, Fujifilm, Blackmagic, Nikon, Panasonic and DJI (Ronin 4D), plus film formats: Super 8, 16 mm, 35 mm, VistaVision, 65 mm and IMAX.
+- 34 zooms, 31 prime sets, 14 anamorphic zooms and 33 anamorphic prime sets; front and rear adapters, T-stops (converted to real f-numbers for depth of field), custom lens sets, large format 65.
+- True-to-life depth of field from focal length, stop, sensor and real distances: in Game mode on any device, in AR from LiDAR depth. Focus stays on a mannequin when it is moved, turned or posed.
 - Lens character: vintage looks, swirly bokeh, soap-bubble highlights and anamorphic stretch.
 
 ## Light
 
-- Sunseeker draws the sun's path over the shot for any date and time, in AR, Game mode and Viewfinder mode (by compass).
+- Sunseeker draws the sun's path over the shot for any date and time. In AR and Viewfinder it works without a location (device location and compass; tap the real sun in AR to set north exactly). Game mode uses the location's place and north, set under Geography in the Location Library.
 
 ## Block
 
-- Eight mannequins in five poses with custom skin, hair and wardrobe colours, adjustable height, placed on the right floor.
+- Eight mannequins in five poses (standing, walking, sitting, on the ground, lying) with custom skin, hair, top and bottom colours and adjustable height; switching pose keeps position, direction and height.
 - People occlusion for blocking real actors in AR.
 
 ## Capture and share
 
-- Stills with a top-down map of camera and actor positions; video with sound and the camera's path; camera, lens and stop in the metadata.
-- ProRAW photos in Viewfinder mode (iPhone Pro) get an adjustable film look: exposure, white balance, tint and 8/16/35 mm grain.
+- Stills with a top-down map of camera and actor positions; clean video (optional sound) with a map of the camera's route and how people moved; camera, lens and stop in the metadata.
+- Apple ProRAW DNG with each photo in Viewfinder mode (iPhone Pro); in the Shot Library it gets an adjustable film look (exposure, white balance, tint, 8/16/35 mm grain). Share the photo, the film-look JPEG or the DNG.
 - Link a location to shots taken without one, afterwards.
 - Shots and maps appear automatically in CinePlanner (https://cineplannerapp.com), the shot-list app by the same maker, through iCloud.
 
 ## Device requirements
 
-- Viewfinder, Game mode, Sunseeker, mannequins: any iPhone or iPad with iOS 18.6 or later.
+- Viewfinder, AR, Game mode, Sunseeker, mannequins: any iPhone or iPad with iOS 18.6 or later.
 - LiDAR scanning and depth of field in AR: an iPhone Pro or iPad Pro with LiDAR.
 - Gaussian splats and Hybrid scans: LiDAR, iOS 27, and an A14 / M1 chip or newer.
 - ProRAW with film look: an iPhone Pro, in Viewfinder mode.
