@@ -185,6 +185,7 @@
   .shutter::after { content: ""; width: calc(34 * var(--p)); height: calc(34 * var(--p)); border-radius: 50%; background: #fff; }
   .shutter-wrap .rb.lens { position: absolute; left: 50%; bottom: calc(100% + 12 * var(--p)); margin-left: calc(-22 * var(--p)); }
   .rawbadge { position: absolute; left: 50%; top: calc(100% + 8 * var(--p)); transform: translateX(-50%); font-size: calc(10 * var(--p)); font-weight: 700; letter-spacing: calc(0.6 * var(--p)); color: #3ecfff; padding: calc(3 * var(--p)) calc(7 * var(--p)); border-radius: 100px; background: rgba(20,22,30,0.62); border: 1px solid rgba(255,255,255,0.12); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); transition: box-shadow 0.25s, border-color 0.25s; }
+  .rawbadge.tab:active { transform: translateX(-50%) scale(0.93); }
   .rawbadge.on { border-color: rgba(62,207,255,0.8); box-shadow: 0 0 calc(10 * var(--p)) rgba(62,207,255,0.4); }
 
   /* bottom readout (CombinedReadoutView) */
