@@ -1,23 +1,53 @@
 # CineStager
 
-> CineStager is an augmented reality (AR) previsualization app for iPhone and iPad that lets filmmakers plan shots before the shoot day. Users import a scanned 3D model of a location, place it in AR at 1:1 scale, block scenes with adjustable mannequins, simulate camera bodies and lenses with accurate framelines, and export top-down shot maps to share with their crew.
+> CineStager is a previsualization (previs) app for iPhone and iPad that lets filmmakers plan shots before the shoot day. Scan a location (LiDAR, photoreal Gaussian splats, or Hybrid), frame it with real camera bodies and lenses in Viewfinder, AR or Game mode, see true-to-life depth of field and the sun's path for any date and time, block the scene with posable mannequins, and capture stills, RAW photos with a film look, video and top-down maps for the crew.
 
-CineStager is built by cinematographer Yannick Giraud and is free to download on the Apple App Store. Every feature is free for 7 days; after that a one-time purchase of €19.99 unlocks the app for good, with no subscription. It requires iOS 18.6 or later.
+CineStager is built by cinematographer Yannick Giraud and is free to download on the Apple App Store. Every feature is free for 7 days; after that a one-time purchase of €19.99 unlocks the app for good, with no subscription. It requires iOS 18.6 or later; some features need specific hardware (see Device requirements).
 
-## What it does
+## Modes
 
-- **Scan a location**: Import a 3D model scanned with a LiDAR app such as Polycam or Scaniverse, or any USDZ file (including models from Blender, SketchUp, or Unreal Engine).
-- **Multi-storey locations**: Mark a building's floors once on import; a floor switch moves the location and mannequins between storeys.
-- **Choose a camera and lens**: Pick from a library of camera bodies and sensor formats, configure prime or zoom lenses, set framelines, and save presets. Supported camera brands include ARRI, Sony, Canon, RED, Kodak, Blackmagic, and DJI.
-- **Block the scene**: Place mannequins in various poses and adjust their height and position. Use occlusion mode to block real actors inside the virtual location.
-- **Export**: Every image capture automatically saves a top-down map showing camera position and actor placement, ready to share with the gaffer, AD, and DP.
-- **Two modes**: AR Mode places the scene in the real world; Game Mode lets you navigate a purely virtual environment.
-- **Saved scenes**: Save a location with its mannequins as a scene and set it up again later, in AR or Game Mode.
-- **iCloud sync**: Locations, scenes and shots sync between iPhone and iPad.
+- **Viewfinder**: a director's viewfinder. The device's own cameras, ultra-wide included, show what a chosen cine camera and lens will see, with framelines. No scan needed.
+- **AR**: places a scanned location around you at 1:1 scale; walk it and block real actors inside it with people occlusion.
+- **Game**: fly a virtual camera with joysticks through a location, anywhere.
+- Camera, lens, scene, date and time carry over between modes.
 
-## Who it is for
+## Scan
 
-Cinematographers, directors, and production crews doing previsualization for commercials, feature films, music videos, remote location scouting, and lens testing during prep.
+- Built-in LiDAR scanner with three kinds of scan: **LiDAR** (precise model, ready in minutes), **Gaussian splats** (photoreal, trained on the device) and **Hybrid** (LiDAR model up close, splats beyond the scanner's reach).
+- Import any USDZ (also from Blender, SketchUp or Unreal Engine) or Gaussian splats from a .ply file.
+- Location Library: crop locations, multi-storey buildings with a floor switch, saved scenes, share a whole location as one .csloc file, iCloud sync between iPhone and iPad.
+- Locations get a place on earth and north, used by Sunseeker.
+
+## Frame
+
+- Camera bodies and sensor modes from ARRI, Sony, Canon, RED, Fujifilm, Blackmagic, Nikon, Panasonic, DJI and film formats.
+- 34 zooms and 27 prime sets, anamorphic lenses and adapters, T-stops, custom lens sets, large-format lenses.
+- True-to-life depth of field from focal length, stop, sensor and real distances: in Game mode on any device, in AR from LiDAR depth. Focus can stay on a mannequin.
+- Lens character: vintage looks, swirly bokeh, soap-bubble highlights and anamorphic stretch.
+
+## Light
+
+- Sunseeker draws the sun's path over the shot for any date and time, in AR, Game mode and Viewfinder mode (by compass).
+
+## Block
+
+- Eight mannequins in five poses with custom skin, hair and wardrobe colours, adjustable height, placed on the right floor.
+- People occlusion for blocking real actors in AR.
+
+## Capture and share
+
+- Stills with a top-down map of camera and actor positions; video with sound and the camera's path; camera, lens and stop in the metadata.
+- ProRAW photos in Viewfinder mode (iPhone Pro) get an adjustable film look: exposure, white balance, tint and 8/16/35 mm grain.
+- Link a location to shots taken without one, afterwards.
+- Shots and maps appear automatically in CinePlanner (https://cineplannerapp.com), the shot-list app by the same maker, through iCloud.
+
+## Device requirements
+
+- Viewfinder, Game mode, Sunseeker, mannequins: any iPhone or iPad with iOS 18.6 or later.
+- LiDAR scanning and depth of field in AR: an iPhone Pro or iPad Pro with LiDAR.
+- Gaussian splats and Hybrid scans: LiDAR, iOS 27, and an A14 / M1 chip or newer.
+- ProRAW with film look: an iPhone Pro, in Viewfinder mode.
+- Ultra-wide lenses: Viewfinder mode only (AR uses the main camera).
 
 ## Key facts
 
@@ -25,12 +55,13 @@ Cinematographers, directors, and production crews doing previsualization for com
 - Price: Free to download with a 7-day free trial of every feature, then a one-time purchase of €19.99 (or the local App Store equivalent); no subscription
 - App Store: https://apps.apple.com/nl/app/cinestager/id6755585287
 - Website: https://cinestager.com/
-- Maker: Yannick Giraud (filmmaker)
+- Maker: Yannick Giraud (cinematographer)
 
 ## Links
 
-- [Home](https://cinestager.com/): Overview, features, and demo video
-- [Help & FAQ](https://cinestager.com/help.html): Location models, USDZ imports, multi-storey locations, saved scenes, lens limitations, camera support
+- [Home](https://cinestager.com/): Modes, scanning, lenses, Sunseeker, pricing and device requirements
+- [Help & FAQ](https://cinestager.com/help.html): Scans and splats, sharing locations, depth of field, RAW film look, floors, scenes, pricing
 - [App Store](https://apps.apple.com/nl/app/cinestager/id6755585287): Download for iPhone and iPad
+- [CinePlanner](https://cineplannerapp.com): Shot lists and scene maps, by the same maker
 - [Instagram](https://www.instagram.com/cinestager/)
 - [YouTube](https://www.youtube.com/@cinestager)

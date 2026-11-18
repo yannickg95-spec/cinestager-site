@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CineStager Help & FAQ — Location Models, Lenses, AR Mode</title>
-<meta name="description" content="Answers to common CineStager questions: importing 3D location models, USDZ and LiDAR scans, multi-storey locations, saved scenes, why models look flat, lens limitations in AR mode, and camera support.">
+<title>CineStager Help & FAQ — Scans, Splats, Lenses, Sunseeker</title>
+<meta name="description" content="Answers to common CineStager questions: the three modes, LiDAR, Gaussian splat and Hybrid scans, device requirements, sharing locations, Sunseeker, depth of field, RAW film look, multi-storey locations and pricing.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://cinestager.com/help.html">
 <meta property="og:type" content="website">
@@ -32,10 +32,34 @@
     },
     {
       "@type": "Question",
+      "name": "Which modes does CineStager have?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "CineStager has three modes, and your camera, lens, scene and sun settings go with you when you switch. Viewfinder is a director's viewfinder: your device's own cameras, ultra-wide included, framed as your cine camera and lens would see it — no location needed. AR places a scanned location around you at 1:1 scale. Game lets you fly a virtual camera through a location with joysticks, anywhere."
+      }
+    },
+    {
+      "@type": "Question",
       "name": "How do I get a Location model?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "CineStager supports any USDZ file as a Location model, including 3D models made in Blender, SketchUp or Unreal Engine, so you can plan shots in a location that hasn't been built yet. For shooting on location, scan with your iPhone or iPad Pro's LiDAR sensor during a scout. We recommend Polycam (paid) or Scaniverse (free) for accurate results."
+        "text": "Scan it with CineStager's built-in scanner on an iPhone or iPad with LiDAR. You choose between three kinds of scan: LiDAR (a precise model, ready in minutes), Gaussian splats (photoreal, trained on your device), or Hybrid (the LiDAR model up close, with splats for everything beyond the scanner's reach). You can also import any USDZ file — including models made in Blender, SketchUp or Unreal Engine, so you can plan shots in a location that hasn't been built yet — or Gaussian splats from a .ply file. LiDAR apps such as Polycam and Scaniverse export USDZ too."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which devices can use Gaussian splats and Hybrid scans?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Splats need an iPhone or iPad with LiDAR, iOS 27, and an A14 / M1 chip or newer. Training happens on your device while CineStager is open; a large room takes a while, so keep the app in front until it's done. On devices that can't show splats, the Location Library says so."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I share a location with someone else?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Export it as a CineStager Location (.csloc): one file with the model, its splats, floors, geography and scenes. Send it with AirDrop, Messages or Files, and open it on the other device to add it to the Location Library."
       }
     },
     {
@@ -43,7 +67,7 @@
       "name": "How do I set up a building with several floors?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "When you import a Location model, CineStager opens it so you can set the floor: move the coloured plane up or down until it sits on the floor, and tap Add Floor for every storey above it. You can change them later with Floors in the location's preview. In AR and Game mode, the floor button switches storeys; the location and your mannequins move with it."
+        "text": "When you import a Location model, CineStager opens it so you can set the floor: move the coloured plane up or down until it sits on the floor, and tap Add Floor for every storey above it. You can change them later with Floors in the location's preview. In AR and Game mode, the floor button switches storeys — the location and your mannequins move with it."
       }
     },
     {
@@ -51,7 +75,31 @@
       "name": "How do I save a scene and use it again?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "With a location and at least one mannequin placed, tap LOC and choose Save Scene, then give it a name. Your scenes are under Scenes in the Location Library, grouped by location. Pick one to set it up again: in AR, tap the floor to place it and the mannequins return to their spots."
+        "text": "With a location and at least one mannequin placed, tap LOC and choose Save Scene, then give it a name. Your scenes are under Scenes in the Location Library, grouped by location. Pick one to set it up again. In AR, tap the floor to place it and the mannequins return to their spots."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does Sunseeker know where the sun will be?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Give a location its place on earth and north once, in the location's geography. Sunseeker then draws the sun's path over your shot for any date and time — in AR, in Game mode on the scanned location, and in Viewfinder mode by the device's compass. The date and time you pick stay the same when you switch modes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How accurate is the depth of field?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It's calculated from the focal length, the stop, the sensor and the real distances in your location, so it matches what a real camera would give — we've compared it side by side with a cinema camera. Lenses open to the f-stop they're made for, and T-stops are converted. In Game mode depth of field works on any device. In AR it uses the LiDAR scanner's depth, so it needs an iPhone or iPad with LiDAR. Focus on a mannequin and it stays sharp, wherever you move it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the film look on RAW photos?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "On an iPhone Pro, Viewfinder mode can save a ProRAW photo with each still. The Shot Library gives these a cinematic film look, which you can adjust: exposure, white balance and tint, and 8, 16 or 35 mm film grain. You can share the photo with the look, or the original DNG."
       }
     },
     {
@@ -59,7 +107,7 @@
       "name": "Something is missing from my library. How do I get it back?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "If CineStager finds location models, photos or videos that aren't listed in your library, the library shows a notice with a Recover button that adds them back. A library can also take a moment to appear on a new device while it downloads from iCloud."
+        "text": "If CineStager finds location models, photos or videos that aren't listed in your library, the library shows a notice with a Recover button that adds them back. On a new device, your library can take a moment to appear while it downloads from iCloud."
       }
     },
     {
@@ -67,7 +115,7 @@
       "name": "Why does my Location model look flat?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "CineStager disables Apple's environmental lighting and uses a white HDRi for consistency, which makes LiDAR scans look their best. Models imported from Blender, SketchUp or Unreal Engine may look flat as a result. To fix this, bake lighting into the model's textures before exporting."
+        "text": "CineStager disables Apple's environmental lighting and uses a white HDRi for consistency — this makes LiDAR scans look their best. If you import a model from Blender, SketchUp or Unreal Engine, it may look flat as a result. To fix this, bake lighting into the textures of your model before exporting."
       }
     },
     {
@@ -75,7 +123,7 @@
       "name": "Why can't I choose a wider lens in AR mode?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Apple only allows the main camera to be used for AR content. When using wider focal lengths, a gray border appears around the live camera feed. This is an Apple platform limitation, not a CineStager limitation."
+        "text": "Apple only allows the main camera to be used for AR content. When using wider focal lengths, a gray border appears around the live camera feed. This is an Apple platform limitation, not a CineStager limitation. For ultra-wide framing, use Viewfinder mode: it uses all of your device's cameras."
       }
     },
     {
@@ -83,12 +131,12 @@
       "name": "Why is there no Map view for video captures?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The Map view is computationally heavy and would cause CineStager to crash during video recording. We hope to add this in a future update."
+        "text": "The Map view is a computationally heavy feature that would cause CineStager to crash during video recording. We hope to add this in a future update."
       }
     },
     {
       "@type": "Question",
-      "name": "Why is a particular camera not included?",
+      "name": "Why is camera X not included?",
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "If you'd like to see additional cameras or profiles, send us a message and we'll do our best to add it in the next update."
@@ -183,11 +231,31 @@
       </div>
     </div>
     <div class="faq-item">
+      <div class="faq-q">Which modes does CineStager have?</div>
+      <div class="faq-a">
+        CineStager has three modes, and your camera, lens, scene and sun settings go with you when you switch.
+        <br><br>
+        <em>Viewfinder</em> is a director's viewfinder: your device's own cameras, ultra-wide included, framed as your cine camera and lens would see it — no location needed. <em>AR</em> places a scanned location around you at 1:1 scale. <em>Game</em> lets you fly a virtual camera through a location with joysticks, anywhere.
+      </div>
+    </div>
+    <div class="faq-item">
       <div class="faq-q">How do I get a Location model?</div>
       <div class="faq-a">
-        CineStager supports any USDZ file as a Location model — including 3D models made in Blender, SketchUp or Unreal Engine. This lets you plan shots in a location that hasn't been built yet.
+        Scan it with CineStager's built-in scanner on an iPhone or iPad with LiDAR. You choose between three kinds of scan: <em>LiDAR</em> (a precise model, ready in minutes), <em>Gaussian splats</em> (photoreal, trained on your device), or <em>Hybrid</em> (the LiDAR model up close, with splats for everything beyond the scanner's reach).
         <br><br>
-        For shooting on location, scan your location using your iPhone or iPad Pro's LiDAR sensor during a scout. We recommend <a href="https://poly.cam" target="_blank">Polycam</a> (paid) or <a href="https://scaniverse.com" target="_blank">Scaniverse</a> (free) for accurate results.
+        You can also import any USDZ file — including models made in Blender, SketchUp or Unreal Engine, so you can plan shots in a location that hasn't been built yet — or Gaussian splats from a .ply file. LiDAR apps such as <a href="https://poly.cam" target="_blank">Polycam</a> and <a href="https://scaniverse.com" target="_blank">Scaniverse</a> export USDZ too.
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Which devices can use Gaussian splats and Hybrid scans?</div>
+      <div class="faq-a">
+        Splats need an iPhone or iPad with LiDAR, iOS 27, and an A14 / M1 chip or newer. Training happens on your device while CineStager is open; a large room takes a while, so keep the app in front until it's done. On devices that can't show splats, the Location Library says so.
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How do I share a location with someone else?</div>
+      <div class="faq-a">
+        Export it as a CineStager Location (.csloc): one file with the model, its splats, floors, geography and scenes. Send it with AirDrop, Messages or Files, and open it on the other device to add it to the Location Library.
       </div>
     </div>
     <div class="faq-item">
@@ -207,6 +275,26 @@
       </div>
     </div>
     <div class="faq-item">
+      <div class="faq-q">How does Sunseeker know where the sun will be?</div>
+      <div class="faq-a">
+        Give a location its place on earth and north once, in the location's geography. Sunseeker then draws the sun's path over your shot for any date and time — in AR, in Game mode on the scanned location, and in Viewfinder mode by the device's compass. The date and time you pick stay the same when you switch modes.
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How accurate is the depth of field?</div>
+      <div class="faq-a">
+        It's calculated from the focal length, the stop, the sensor and the real distances in your location, so it matches what a real camera would give — we've compared it side by side with a cinema camera. Lenses open to the f-stop they're made for, and T-stops are converted.
+        <br><br>
+        In Game mode depth of field works on any device. In AR it uses the LiDAR scanner's depth, so it needs an iPhone or iPad with LiDAR. Focus on a mannequin and it stays sharp, wherever you move it.
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What is the film look on RAW photos?</div>
+      <div class="faq-a">
+        On an iPhone Pro, Viewfinder mode can save a ProRAW photo with each still. The Shot Library gives these a cinematic film look, which you can adjust: exposure, white balance and tint, and 8, 16 or 35 mm film grain. You can share the photo with the look, or the original DNG.
+      </div>
+    </div>
+    <div class="faq-item">
       <div class="faq-q">Something is missing from my library. How do I get it back?</div>
       <div class="faq-a">
         If CineStager finds location models, photos or videos that aren't listed in your library, the library shows a notice with a <em>Recover</em> button that adds them back. On a new device, your library can take a moment to appear while it downloads from iCloud.
@@ -222,6 +310,8 @@
       <div class="faq-q">Why can't I choose a wider lens in AR mode?</div>
       <div class="faq-a">
         Apple only allows the main camera to be used for AR content. When using wider focal lengths, a gray border appears around the live camera feed. This is an Apple platform limitation, not a CineStager limitation.
+        <br><br>
+        For ultra-wide framing, use Viewfinder mode: it uses all of your device's cameras.
       </div>
     </div>
     <div class="faq-item">
