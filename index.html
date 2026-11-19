@@ -177,7 +177,7 @@
   .library i { position: absolute; width: calc(46 * var(--p)); height: calc(46 * var(--p)); border-radius: calc(13 * var(--p)); border: 1px solid rgba(255,255,255,0.10); }
   .library i:nth-child(1) { left: calc(4 * var(--p)); top: calc(4 * var(--p)); background: #15151b; }
   .library i:nth-child(2) { left: calc(2 * var(--p)); top: calc(2 * var(--p)); background: #23232b; }
-  .library i:nth-child(3) { left: 0; top: 0; background: url(shot-raw.jpg) center / cover; border-color: rgba(255,255,255,0.22); transition: border-color 0.25s, box-shadow 0.25s; }
+  .library i:nth-child(3) { left: 0; top: 0; background: url(shot-raw.jpg?v=2) center / cover; border-color: rgba(255,255,255,0.22); transition: border-color 0.25s, box-shadow 0.25s; }
   .library.on i:nth-child(3) { border-color: rgba(62,207,255,0.8); box-shadow: 0 0 calc(10 * var(--p)) rgba(62,207,255,0.4); }
   .library .badge { top: calc(-7 * var(--p)); right: calc(-8 * var(--p)); border-color: #05050a; }
   .shutter-wrap { position: absolute; right: calc(var(--edge) - 3 * var(--p)); top: calc(50% + 16 * var(--p)); transform: translateY(-50%); z-index: 10; width: calc(54 * var(--p)); height: calc(54 * var(--p)); }
@@ -583,7 +583,7 @@
 
       <!-- RAW: the shot library's Adjust -->
       <div class="scene" data-scene="raw">
-        <img class="bg" src="shot-raw.jpg" alt="A ProRAW photo with CineStager's film look: bare trees framing a polder under a grey sky">
+        <img class="bg" src="shot-raw.jpg?v=2" alt="A ProRAW photo with CineStager's film look: bikes on an Amsterdam canal bridge at dusk">
         <div class="capbar">
           <span class="capbtn">Cancel</span><span style="flex:1"></span>
           <span class="capbtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3L4.5 9M4.5 4.5V9H9"/></svg>Reset</span>
@@ -594,12 +594,14 @@
           <div class="actl" data-set="highlights" hidden><div class="ios-slider small"><i style="width:75%"></i></div><span class="v unset mono">75%</span></div>
           <div class="actl" data-set="temperature" hidden><div class="ios-slider small"><i style="width:41%"></i></div><span class="v mono">4300 K</span></div>
           <div class="actl" data-set="tint" hidden><div class="ios-slider small"><i style="width:50%"></i></div><span class="v unset mono">0</span></div>
+          <div class="actl" data-set="saturation" hidden><div class="ios-slider small"><i style="width:57.5%"></i></div><span class="v mono">115%</span></div>
           <div class="actl" data-set="grain" hidden><div class="seg small"><span>None</span><span>8mm</span><span>16mm</span><span class="on">35mm</span></div></div>
           <div class="chooser">
             <button class="cb on" data-set="exposure"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 3.5v8M8 7.5h8M8 18.5h8"/></svg><b>Exposure</b></button>
             <button class="cb" data-set="highlights"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5.3 5.3L7 7M17 17l1.7 1.7M5.3 18.7L7 17M17 7l1.7-1.7"/></svg><b>Highlights</b></button>
             <button class="cb dot" data-set="temperature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M10 14.5V5a2 2 0 0 1 4 0v9.5a4 4 0 1 1-4 0z"/><path d="M12 10v6.5"/></svg><b>Temperature</b></button>
             <button class="cb" data-set="tint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3.5s-6 6.5-6 11a6 6 0 0 0 12 0c0-4.5-6-11-6-11z"/><path d="M12 3.5s6 6.5 6 11a6 6 0 0 1-6 6z" fill="currentColor"/></svg><b>Tint</b></button>
+            <button class="cb dot" data-set="saturation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M12 3.5c-4.9 0-8.5 3.6-8.5 8.2 0 4.4 3.6 8.8 8 8.8 1.5 0 2.2-.9 2.2-1.9 0-1.4-1.3-1.8-1.3-3.1 0-1.1.9-1.8 2.1-1.8h2.2c2.3 0 3.8-1.5 3.8-3.6 0-3.7-3.8-6.6-8.5-6.6z"/><circle cx="8" cy="11" r="1.2" fill="currentColor" stroke="none"/><circle cx="10.5" cy="7.5" r="1.2" fill="currentColor" stroke="none"/><circle cx="14.8" cy="7.6" r="1.2" fill="currentColor" stroke="none"/></svg><b>Saturation</b></button>
             <button class="cb dot" data-set="grain"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="4.5" y="3" width="15" height="18" rx="2"/><path d="M8.5 3v18M15.5 3v18M4.5 8h4M4.5 12h4M4.5 16h4M15.5 8h4M15.5 12h4M15.5 16h4"/></svg><b>Grain</b></button>
           </div>
         </div>
@@ -699,7 +701,7 @@ var HIGHLIGHTS = {
   lens:   { kicker: 'Lens', title: 'Real lenses. Real depth of field.', text: 'Your camera, your lens set — rendered the way the glass does.', chips: ['Depth of field', 'Lens character', 'Anamorphic', 'T-stops'] },
   sun:    { kicker: 'Sun', title: 'Know where the sun will be.', text: 'The sun\'s path over your shot, any date, any time.', chips: ['Any date & time', 'Tap the real sun', 'Every mode'] },
   people: { kicker: 'Mannequins', title: 'Put people in the frame.', text: 'Eight people, five poses, your colours.', chips: ['8 people', '5 poses', 'Your colours', 'Focus that follows'] },
-  raw:    { kicker: 'RAW', title: 'RAW with a film look.', text: 'Shoot ProRAW, finish it with exposure, tint and grain.', chips: ['Apple ProRAW', 'Film look', '8 · 16 · 35mm grain'] },
+  raw:    { kicker: 'RAW', title: 'RAW with a film look.', text: 'Shoot ProRAW, finish it with exposure, colour and grain.', chips: ['Apple ProRAW', 'Film look', '8 · 16 · 35mm grain'] },
   map:    { kicker: 'Map', title: 'A map for every shot.', text: 'Camera and cast on a top-down map — for stills and video.', chips: ['Stills & video', 'Camera route', 'Straight to CinePlanner'] }
 };
 (function() {

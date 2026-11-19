@@ -37,7 +37,7 @@ CineStager is built by cinematographer Yannick Giraud and is free to download on
 ## Capture and share
 
 - Stills with a top-down map of camera and actor positions; clean video (optional sound) with a map of the camera's route and how people moved; camera, lens and stop in the metadata.
-- Apple ProRAW DNG with each photo in Viewfinder mode (iPhone Pro); in the Shot Library it gets an adjustable film look (exposure, white balance, tint, 8/16/35 mm grain). Share the photo, the film-look JPEG or the DNG.
+- Apple ProRAW DNG with each photo in Viewfinder mode (iPhone Pro); in the Shot Library it gets an adjustable film look (exposure, highlights, white balance, tint, saturation, 8/16/35 mm grain). Share the photo, the film-look JPEG or the DNG. Stills without RAW (AR, Game, Viewfinder) can get the film look too, made from the JPEG, so with less latitude than from ProRAW.
 - Link a location to shots taken without one, afterwards.
 - Shots and maps appear automatically in CinePlanner (https://cineplannerapp.com), the shot-list app by the same maker, through iCloud.
 
