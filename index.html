@@ -305,13 +305,19 @@
   .capbar { position: absolute; top: calc(14 * var(--p)); left: calc(130 * var(--p)); right: calc(130 * var(--p)); z-index: 9; display: flex; gap: calc(8 * var(--p)); align-items: center; }
   .capbtn { display: flex; align-items: center; gap: calc(5 * var(--p)); height: calc(34 * var(--p)); padding: 0 calc(14 * var(--p)); border-radius: 100px; background: rgba(40,40,44,0.7); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); font-size: calc(15 * var(--p)); color: #fff; }
   .capbtn svg { width: calc(13 * var(--p)); height: calc(13 * var(--p)); }
-  .adjust { position: absolute; left: 50%; bottom: calc(8 * var(--p)); transform: translateX(-50%); width: calc(456 * var(--p)); z-index: 9; padding: calc(4 * var(--p)) calc(12 * var(--p)); border-radius: calc(14 * var(--p)); background: rgba(38,38,42,0.72); -webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px); color: #fff; }
-  .adj { display: flex; align-items: center; gap: calc(10 * var(--p)); height: calc(30 * var(--p)); --tint: #fff; }
-  .adj > svg { width: calc(14 * var(--p)); height: calc(14 * var(--p)); flex: 0 0 calc(18 * var(--p)); }
-  .adj .v { width: calc(58 * var(--p)); text-align: right; font-size: calc(12 * var(--p)); font-weight: 600; }
-  .adj .v.unset { opacity: 0.6; }
-  .adj .seg { flex: 1; margin: calc(4 * var(--p)) 0; }
-  .adj.g { height: auto; }
+  .adjust { position: absolute; left: 50%; bottom: calc(8 * var(--p)); transform: translateX(-50%); width: calc(420 * var(--p)); z-index: 9; padding: calc(8 * var(--p)) calc(12 * var(--p)); border-radius: calc(14 * var(--p)); background: rgba(38,38,42,0.72); -webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px); color: #fff; }
+  .actl { display: flex; align-items: center; gap: calc(10 * var(--p)); height: calc(30 * var(--p)); --tint: #fff; }
+  .actl[hidden] { display: none; }
+  .actl .v { width: calc(58 * var(--p)); text-align: right; font-size: calc(12 * var(--p)); font-weight: 600; }
+  .actl .v.unset { opacity: 0.6; }
+  .actl .seg { flex: 1; }
+  .chooser { display: flex; justify-content: center; gap: calc(4 * var(--p)); margin-top: calc(8 * var(--p)); }
+  .cb { position: relative; display: flex; align-items: center; justify-content: center; gap: calc(5 * var(--p)); min-width: calc(40 * var(--p)); height: calc(30 * var(--p)); padding: 0; border-radius: 100px; background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.85); cursor: pointer; transition: background 0.25s, color 0.25s, padding 0.25s; }
+  .cb svg { width: calc(13 * var(--p)); height: calc(13 * var(--p)); }
+  .cb b { display: none; font-size: calc(12 * var(--p)); font-weight: 600; white-space: nowrap; }
+  .cb.on { background: #fff; color: #000; padding: 0 calc(12 * var(--p)); }
+  .cb.on b { display: inline; }
+  .cb.dot:not(.on)::after { content: ""; position: absolute; top: calc(4 * var(--p)); right: calc(6 * var(--p)); width: calc(5 * var(--p)); height: calc(5 * var(--p)); border-radius: 50%; background: #fff; }
 
   /* caption under the device */
   .caption { text-align: center; max-width: 640px; margin: 40px auto 0; min-height: 150px; }
@@ -561,11 +567,19 @@
           <span class="capbtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3L4.5 9M4.5 4.5V9H9"/></svg>Reset</span>
           <span class="capbtn" style="font-weight:700">Done</span>
         </div>
-        <div class="adjust">
-          <div class="adj"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 3.5v8M8 7.5h8M8 18.5h8"/></svg><div class="ios-slider small"><i style="width:55%"></i></div><span class="v mono">+0.3</span></div>
-          <div class="adj"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 14.5V5a2 2 0 0 1 4 0v9.5a4 4 0 1 1-4 0z"/><path d="M12 10v6.5"/></svg><div class="ios-slider small"><i style="width:41%"></i></div><span class="v mono">4300 K</span></div>
-          <div class="adj"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3.5s-6 6.5-6 11a6 6 0 0 0 12 0c0-4.5-6-11-6-11z"/><path d="M12 3.5s6 6.5 6 11a6 6 0 0 1-6 6z" fill="currentColor"/></svg><div class="ios-slider small"><i style="width:50%"></i></div><span class="v unset mono">+0</span></div>
-          <div class="adj g"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4.5" y="3" width="15" height="18" rx="2"/><path d="M8.5 3v18M15.5 3v18M4.5 8h4M4.5 12h4M4.5 16h4M15.5 8h4M15.5 12h4M15.5 16h4"/></svg><div class="seg small"><span>None</span><span>8mm</span><span>16mm</span><span class="on">35mm</span></div></div>
+        <div class="adjust" id="adjust">
+          <div class="actl" data-set="exposure"><div class="ios-slider small"><i style="width:53%"></i></div><span class="v mono">+0.3 EV</span></div>
+          <div class="actl" data-set="highlights" hidden><div class="ios-slider small"><i style="width:75%"></i></div><span class="v unset mono">75%</span></div>
+          <div class="actl" data-set="temperature" hidden><div class="ios-slider small"><i style="width:41%"></i></div><span class="v mono">4300 K</span></div>
+          <div class="actl" data-set="tint" hidden><div class="ios-slider small"><i style="width:50%"></i></div><span class="v unset mono">0</span></div>
+          <div class="actl" data-set="grain" hidden><div class="seg small"><span>None</span><span>8mm</span><span>16mm</span><span class="on">35mm</span></div></div>
+          <div class="chooser">
+            <button class="cb on" data-set="exposure"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 3.5v8M8 7.5h8M8 18.5h8"/></svg><b>Exposure</b></button>
+            <button class="cb" data-set="highlights"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5.3 5.3L7 7M17 17l1.7 1.7M5.3 18.7L7 17M17 7l1.7-1.7"/></svg><b>Highlights</b></button>
+            <button class="cb dot" data-set="temperature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M10 14.5V5a2 2 0 0 1 4 0v9.5a4 4 0 1 1-4 0z"/><path d="M12 10v6.5"/></svg><b>Temperature</b></button>
+            <button class="cb" data-set="tint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3.5s-6 6.5-6 11a6 6 0 0 0 12 0c0-4.5-6-11-6-11z"/><path d="M12 3.5s6 6.5 6 11a6 6 0 0 1-6 6z" fill="currentColor"/></svg><b>Tint</b></button>
+            <button class="cb dot" data-set="grain"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="4.5" y="3" width="15" height="18" rx="2"/><path d="M8.5 3v18M15.5 3v18M4.5 8h4M4.5 12h4M4.5 16h4M15.5 8h4M15.5 12h4M15.5 16h4"/></svg><b>Grain</b></button>
+          </div>
         </div>
       </div>
 
@@ -727,6 +741,18 @@ var HIGHLIGHTS = {
   }
   if (!auto) prog.classList.add('paused');
   render('modes'); show('modes');
+})();
+
+// RAW: the Adjust panel shows one setting at a time, picked below it.
+(function() {
+  var adj = document.getElementById('adjust');
+  if (!adj) return;
+  adj.querySelectorAll('.cb').forEach(function(b) {
+    b.addEventListener('click', function() {
+      adj.querySelectorAll('.cb').forEach(function(x) { x.classList.toggle('on', x === b); });
+      adj.querySelectorAll('.actl').forEach(function(c) { c.hidden = c.dataset.set !== b.dataset.set; });
+    });
+  });
 })();
 
 // Solid nav once the page scrolls.
