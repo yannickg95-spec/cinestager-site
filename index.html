@@ -177,7 +177,7 @@
   .library i { position: absolute; width: calc(46 * var(--p)); height: calc(46 * var(--p)); border-radius: calc(13 * var(--p)); border: 1px solid rgba(255,255,255,0.10); }
   .library i:nth-child(1) { left: calc(4 * var(--p)); top: calc(4 * var(--p)); background: #15151b; }
   .library i:nth-child(2) { left: calc(2 * var(--p)); top: calc(2 * var(--p)); background: #23232b; }
-  .library i:nth-child(3) { left: 0; top: 0; background: url(screen1.jpg) center / cover; border-color: rgba(255,255,255,0.22); transition: border-color 0.25s, box-shadow 0.25s; }
+  .library i:nth-child(3) { left: 0; top: 0; background: url(shot-raw.jpg) center / cover; border-color: rgba(255,255,255,0.22); transition: border-color 0.25s, box-shadow 0.25s; }
   .library.on i:nth-child(3) { border-color: rgba(62,207,255,0.8); box-shadow: 0 0 calc(10 * var(--p)) rgba(62,207,255,0.4); }
   .library .badge { top: calc(-7 * var(--p)); right: calc(-8 * var(--p)); border-color: #05050a; }
   .shutter-wrap { position: absolute; right: calc(var(--edge) - 3 * var(--p)); top: calc(50% + 16 * var(--p)); transform: translateY(-50%); z-index: 10; width: calc(54 * var(--p)); height: calc(54 * var(--p)); }
@@ -555,8 +555,7 @@
 
       <!-- RAW: the shot library's Adjust -->
       <div class="scene" data-scene="raw">
-        <img class="bg" src="screen1.jpg" alt="" style="filter:blur(calc(2 * var(--p))) sepia(0.3) saturate(0.85) contrast(1.1) brightness(0.88);transform:scale(3);transform-origin:80% 15%">
-        <div class="grain"></div>
+        <img class="bg" src="shot-raw.jpg" alt="A ProRAW photo with CineStager's film look: bare trees framing a polder under a grey sky">
         <div class="capbar">
           <span class="capbtn">Cancel</span><span style="flex:1"></span>
           <span class="capbtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3L4.5 9M4.5 4.5V9H9"/></svg>Reset</span>
