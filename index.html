@@ -319,6 +319,20 @@
   .cb.on b { display: inline; }
   .cb.dot:not(.on)::after { content: ""; position: absolute; top: calc(4 * var(--p)); right: calc(6 * var(--p)); width: calc(5 * var(--p)); height: calc(5 * var(--p)); border-radius: 50%; background: #fff; }
 
+  /* arrows: step through the highlights */
+  .device-wrap { position: relative; }
+  .nav-arrow { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text); background: rgba(12,12,20,0.85); border: 1px solid var(--border); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); transition: color 0.2s, border-color 0.2s, background 0.2s, transform 0.15s; }
+  .nav-arrow:hover { color: var(--cyan); border-color: rgba(62,207,255,0.5); background: rgba(62,207,255,0.08); }
+  .nav-arrow:active { transform: scale(0.92); }
+  .nav-arrow:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+  .nav-arrow svg { width: 18px; height: 18px; }
+  .nav-arrow.side { position: absolute; top: 50%; z-index: 5; margin-top: -22px; }
+  .nav-arrow.side.prev { left: -64px; } .nav-arrow.side.next { right: -64px; }
+  .nav-arrow.inline { display: none; width: 36px; height: 36px; } .nav-arrow.inline svg { width: 15px; height: 15px; }
+  .progress-row { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 26px; }
+  .progress-row .progress { margin-top: 0; }
+  @media (max-width: 1240px) { .nav-arrow.side { display: none; } .nav-arrow.inline { display: flex; } }
+
   /* caption under the device */
   .caption { text-align: center; max-width: 640px; margin: 40px auto 0; min-height: 150px; }
   .caption .kicker { font-family: "DM Mono", monospace; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--cyan); }
@@ -435,6 +449,9 @@
 
 <!-- INSIDE THE APP: tap a rail button, the screen and caption change -->
 <section class="explorer fade-up" style="animation-delay:.7s" id="inside" aria-label="Inside the app">
+  <div class="device-wrap">
+  <button class="nav-arrow side prev" data-step="-1" aria-label="Previous highlight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 5l-7 7 7 7"/></svg></button>
+  <button class="nav-arrow side next" data-step="1" aria-label="Next highlight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 5l7 7-7 7"/></svg></button>
   <div class="device">
     <div class="screen" id="screen">
       <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -610,6 +627,7 @@
     </div>
   </div>
 
+  </div>
   <div class="caption" aria-live="polite">
     <div class="caption-inner" id="caption">
       <div class="kicker" id="capKicker"></div>
@@ -617,7 +635,7 @@
       <p id="capText"></p>
       <div class="chips" id="capChips"></div>
     </div>
-    <div class="progress" id="progress"></div>
+    <div class="progress-row"><button class="nav-arrow inline prev" data-step="-1" aria-label="Previous highlight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 5l-7 7 7 7"/></svg></button><div class="progress" id="progress"></div><button class="nav-arrow inline next" data-step="1" aria-label="Next highlight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 5l7 7-7 7"/></svg></button></div>
   </div>
 </section>
 
@@ -732,12 +750,19 @@ var HIGHLIGHTS = {
     if (!auto) return;
     timer = setTimeout(function() { show(order[(order.indexOf(current) + 1) % order.length]); schedule(); }, DUR);
   }
-  btns.forEach(function(b) {
-    b.addEventListener('click', function() { auto = false; prog.classList.add('paused'); clearTimeout(timer); show(b.dataset.tab); });
+  function pick(key) { auto = false; prog.classList.add('paused'); clearTimeout(timer); show(key); }
+  btns.forEach(function(b) { b.addEventListener('click', function() { pick(b.dataset.tab); }); });
+  function step(d) { pick(order[(order.indexOf(current) + d + order.length) % order.length]); }
+  document.querySelectorAll('.nav-arrow').forEach(function(a) { a.addEventListener('click', function() { step(+a.dataset.step); }); });
+  // The arrow keys too, while the explorer is in view.
+  var inView = false;
+  document.addEventListener('keydown', function(e) {
+    if (!inView || e.target.closest('input, textarea')) return;
+    if (e.key === 'ArrowLeft') step(-1); else if (e.key === 'ArrowRight') step(1);
   });
   // Auto-advance only while the explorer is on screen.
   if ('IntersectionObserver' in window) {
-    new IntersectionObserver(function(es) { es.forEach(function(e) { if (e.isIntersecting) schedule(); else clearTimeout(timer); }); }, { threshold: 0.3 }).observe(document.getElementById('inside'));
+    new IntersectionObserver(function(es) { es.forEach(function(e) { inView = e.isIntersecting; if (e.isIntersecting) schedule(); else clearTimeout(timer); }); }, { threshold: 0.3 }).observe(document.getElementById('inside'));
   }
   if (!auto) prog.classList.add('paused');
   render('modes'); show('modes');
