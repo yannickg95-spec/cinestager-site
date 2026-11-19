@@ -300,6 +300,25 @@
   .sunbar output { font-size: calc(16 * var(--p)); font-weight: 500; min-width: calc(52 * var(--p)); color: #fff; }
   .sunbar .now { font-size: calc(10 * var(--p)); font-weight: 600; letter-spacing: calc(1.5 * var(--p)); color: rgba(255,255,255,0.55); height: calc(26 * var(--p)); padding: 0 calc(8 * var(--p)); border-radius: 100px; border: 1px solid rgba(255,255,255,0.15); display: flex; align-items: center; }
 
+  /* MAP: the shot library's top-down map */
+  .scene[data-scene="map"] { background: #000; }
+  .map-box { position: absolute; left: 50%; top: calc(14 * var(--p)); width: calc(374 * var(--p)); height: calc(374 * var(--p)); margin-left: calc(-187 * var(--p)); border-radius: calc(14 * var(--p)); overflow: hidden; background: url(screen4.jpg) 40% 35% / 110% no-repeat; box-shadow: 0 0 0 1px rgba(255,255,255,0.08); }
+  .map-over { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .map-over .route { fill: none; stroke: #ff3b30; stroke-width: 0.9; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
+  .map-over .route.walk { stroke: #ff9f0a; }
+  .scene.on .map-over .route { stroke-dashoffset: 0; transition: stroke-dashoffset 1.8s ease-in-out 0.4s; }
+  .scene.on .map-over .route.walk { transition-delay: 1.4s; }
+  .map-over .pin { fill: #ff3b30; }
+  .map-over .num { font: 700 4px -apple-system, "DM Sans", sans-serif; fill: #fff; paint-order: stroke; stroke: rgba(0,0,0,0.5); stroke-width: 0.6; }
+  .map-shot { position: absolute; left: calc(118 * var(--p)); bottom: calc(14 * var(--p)); width: calc(150 * var(--p)); border-radius: calc(10 * var(--p)); overflow: hidden; border: 1px solid rgba(255,255,255,0.18); box-shadow: 0 calc(6 * var(--p)) calc(18 * var(--p)) rgba(0,0,0,0.5); opacity: 0; transform: translateY(calc(8 * var(--p))); transition: opacity 0.4s 0.3s, transform 0.4s 0.3s; }
+  .scene.on .map-shot { opacity: 1; transform: none; }
+  .map-shot img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+  .map-shot span { position: absolute; left: 0; right: 0; bottom: 0; padding: calc(10 * var(--p)) calc(6 * var(--p)) calc(4 * var(--p)); font-size: calc(7.5 * var(--p)); letter-spacing: calc(0.4 * var(--p)); color: #fff; background: linear-gradient(transparent, rgba(0,0,0,0.75)); }
+  .map-sync { position: absolute; right: calc(118 * var(--p)); bottom: calc(14 * var(--p)); display: flex; align-items: center; gap: calc(7 * var(--p)); height: calc(34 * var(--p)); padding: 0 calc(12 * var(--p)) 0 calc(6 * var(--p)); border-radius: 100px; background: rgba(40,40,44,0.8); border: 1px solid rgba(255,255,255,0.12); font-size: calc(12 * var(--p)); font-weight: 600; color: #fff; opacity: 0; transition: opacity 0.4s 2.4s; }
+  .scene.on .map-sync { opacity: 1; }
+  .map-sync img { width: calc(22 * var(--p)); height: calc(22 * var(--p)); border-radius: calc(6 * var(--p)); }
+  @media (max-width: 760px) { .map-box { width: calc(330 * var(--p)); height: calc(330 * var(--p)); margin-left: calc(-165 * var(--p)); top: calc(56 * var(--p)); } .map-shot { left: calc(64 * var(--p)); width: calc(120 * var(--p)); } .map-sync { right: calc(70 * var(--p)); } }
+
   /* RAW: the shot library's Adjust */
   .grain { position: absolute; inset: 0; opacity: 0.2; mix-blend-mode: overlay; pointer-events: none; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
   .capbar { position: absolute; top: calc(14 * var(--p)); left: calc(130 * var(--p)); right: calc(130 * var(--p)); z-index: 9; display: flex; gap: calc(8 * var(--p)); align-items: center; }
@@ -602,8 +621,18 @@
 
       <!-- MAP -->
       <div class="scene" data-scene="map">
-        <div style="position:absolute;inset:0;background:#e7e5df;"></div>
-        <img class="bg" src="screen4.jpg" alt="" style="object-fit:contain;">
+        <div class="capbar"><span class="capbtn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 7.5h3l1.6-2.3h6.8L17 7.5h3a1.5 1.5 0 0 1 1.5 1.5v9A1.5 1.5 0 0 1 20 19.5H4A1.5 1.5 0 0 1 2.5 18V9A1.5 1.5 0 0 1 4 7.5z"/><circle cx="12" cy="13.2" r="3.6" fill="#28282c"/></svg>Image Capture</span></div>
+        <div class="map-box">
+          <svg class="map-over" viewBox="0 0 100 100" aria-hidden="true">
+            <defs><marker id="mapArrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#ff3b30"/></marker></defs>
+            <path class="route" d="M19 30 C 24 46, 28 58, 40 56" pathLength="1" marker-end="url(#mapArrow)"/>
+            <path class="route walk" d="M74 34 C 70 38, 64 42, 60 45" pathLength="1" marker-end="url(#mapArrow)"/>
+            <circle class="pin" cx="19" cy="30" r="1.4"/>
+            <text x="63.5" y="44" class="num">1</text>
+          </svg>
+        </div>
+        <div class="map-shot"><img src="shot-bokeh.jpg?v=3" alt=""><span class="mono">SHOT 12 · 50 mm · T2.8</span></div>
+        <div class="map-sync"><img src="cineplanner-icon.svg" alt=""><span>In CinePlanner</span></div>
       </div>
 
       <!-- THE APP'S HUD: its buttons switch the highlights -->
